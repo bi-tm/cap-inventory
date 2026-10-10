@@ -1,0 +1,1224 @@
+{
+ "meta": {
+  "creator": "cds-dk 10.0.7"
+ },
+ "$version": "2.0",
+ "definitions": {
+  "api_whse_physinvtryitem_2.SAP__Message": {
+   "kind": "type",
+   "@cds.external": true,
+   "elements": {
+    "code": {
+     "type": "cds.String",
+     "notNull": true
+    },
+    "message": {
+     "type": "cds.String",
+     "notNull": true
+    },
+    "target": {
+     "type": "cds.String"
+    },
+    "additionalTargets": {
+     "items": {
+      "type": "cds.String",
+      "notNull": true
+     }
+    },
+    "transition": {
+     "type": "cds.Boolean",
+     "notNull": true
+    },
+    "numericSeverity": {
+     "type": "cds.Integer",
+     "@odata.Type": "Edm.Byte",
+     "notNull": true
+    },
+    "longtextUrl": {
+     "type": "cds.String"
+    }
+   }
+  },
+  "api_whse_physinvtryitem_2": {
+   "kind": "service",
+   "@cds.external": true,
+   "@CodeList.UnitsOfMeasure.Url": "../../../../default/iwbep/common/0001/$metadata",
+   "@CodeList.UnitsOfMeasure.CollectionPath": "UnitsOfMeasure",
+   "@Common.ApplyMultiUnitBehaviorForSortingAndFiltering": true,
+   "@Capabilities.FilterFunctions": [
+    "eq",
+    "ne",
+    "gt",
+    "ge",
+    "lt",
+    "le",
+    "and",
+    "or",
+    "contains",
+    "startswith",
+    "endswith",
+    "any",
+    "all"
+   ],
+   "@SAP__support.TechnicalInfoLinks.Url": "../../../../default/iwbep/common/0001/$metadata",
+   "@SAP__support.TechnicalInfoLinks.FunctionImport": "GetTechnicalInfoLinks",
+   "@Capabilities.SupportedFormats": [
+    "application/json",
+    "application/pdf"
+   ],
+   "@PDF.Features.DocumentDescriptionReference": "../../../../default/iwbep/common/0001/$metadata",
+   "@PDF.Features.DocumentDescriptionCollection": "MyDocumentDescriptions",
+   "@PDF.Features.ArchiveFormat": true,
+   "@PDF.Features.Border": true,
+   "@PDF.Features.CoverPage": true,
+   "@PDF.Features.FitToPage": true,
+   "@PDF.Features.FontName": true,
+   "@PDF.Features.FontSize": true,
+   "@PDF.Features.HeaderFooter": true,
+   "@PDF.Features.IANATimezoneFormat": true,
+   "@PDF.Features.Margin": true,
+   "@PDF.Features.Padding": true,
+   "@PDF.Features.ResultSizeDefault": 20000,
+   "@PDF.Features.ResultSizeMaximum": 20000,
+   "@PDF.Features.Signature": true,
+   "@PDF.Features.TextDirectionLayout": true,
+   "@PDF.Features.Treeview": true,
+   "@PDF.Features.UploadToFileShare": true,
+   "@Capabilities.BatchSupport.SupportedFormats": [
+    "application/json",
+    "multipart/mixed"
+   ],
+   "@Capabilities.KeyAsSegmentSupported": true,
+   "@Capabilities.AsynchronousRequestsSupported": true
+  },
+  "api_whse_physinvtryitem_2.WhsePhysicalInventoryCountItem": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "EWMWarehouse": {
+     "key": true,
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.SAPObjectNodeTypeReference": "Warehouse",
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Warehouse Number",
+     "@Common.Heading": "WhN",
+     "@Common.QuickInfo": "Warehouse Number/Warehouse Complex",
+     "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLGNUM"
+    },
+    "PhysicalInventoryDocNumber": {
+     "key": true,
+     "type": "cds.String",
+     "length": 20,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "PI Document Number",
+     "@Common.QuickInfo": "Physical Inventory Document Number"
+    },
+    "PhysicalInventoryDocYear": {
+     "key": true,
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Document Year",
+     "@Common.QuickInfo": "Document Year of Physical Inventory Document"
+    },
+    "PhysicalInventoryItemNumber": {
+     "key": true,
+     "type": "cds.String",
+     "length": 6,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Item"
+    },
+    "LineIndexOfPInvItem": {
+     "key": true,
+     "type": "cds.Integer",
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Table Row",
+     "@Common.Heading": "Row",
+     "@Common.QuickInfo": "Row Index of Internal Tables",
+     "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=SYTABIX"
+    },
+    "PInvQuantitySequence": {
+     "key": true,
+     "type": "cds.Integer",
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Table Row",
+     "@Common.Heading": "Row",
+     "@Common.QuickInfo": "Row Index of Internal Tables",
+     "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=SYTABIX"
+    },
+    "PhysicalInventoryItemLevel": {
+     "type": "cds.Integer",
+     "notNull": true,
+     "@Common.Label": "Level in Tree",
+     "@Common.QuickInfo": "Level in Tree Hierarchy Observed from Leaf"
+    },
+    "PInvItemParentType": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.Label": "Parent Item Type",
+     "@Common.QuickInfo": "Parent Item Type",
+     "@Common.IsUpperCase": true,
+     "@Common.Heading": "Par. Obj."
+    },
+    "EWMStorageBin": {
+     "type": "cds.String",
+     "length": 18,
+     "notNull": true,
+     "@Common.Label": "Storage Bin",
+     "@Common.QuickInfo": "Storage Bin",
+     "@Common.IsUpperCase": true,
+     "@Common.Heading": "Bin",
+     "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLGPLA"
+    },
+    "EWMStorageType": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.SAPObjectNodeTypeReference": "WarehouseStorageType",
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Storage Type",
+     "@Common.Heading": "Ty.",
+     "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLGTYP"
+    },
+    "ParentHandlingUnitNumber": {
+     "type": "cds.String",
+     "length": 20,
+     "notNull": true,
+     "@Common.Label": "Parent Handling Unit",
+     "@Common.QuickInfo": "Parent Handling Unit",
+     "@Common.IsUpperCase": true,
+     "@Common.Heading": "Source Handling Unit",
+     "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLTAP_VLENR_NOCONV"
+    },
+    "PhysicalInventoryItemType": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Cat. of Item Object",
+     "@Common.Heading": "Cat.Item",
+     "@Common.QuickInfo": "Object Category of Physical Inventory (Item Object)"
+    },
+    "HandlingUnitNumber": {
+     "type": "cds.String",
+     "length": 20,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Source Handling Unit",
+     "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLTAP_VLENR_NOCONV"
+    },
+    "Product": {
+     "type": "cds.String",
+     "length": 18,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Product",
+     "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=PRODUCTNUMBER"
+    },
+    "ProductUUID": {
+     "type": "cds.UUID",
+     "@Common.Label": "Product",
+     "@Common.QuickInfo": "Product UUID"
+    },
+    "BatchUUID": {
+     "type": "cds.UUID",
+     "@Common.Label": "Batch"
+    },
+    "Batch": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.Label": "Batch Number",
+     "@Common.QuickInfo": "Batch Number"
+    },
+    "SerialNumberRequiredLevel": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Serial No. Requiremt",
+     "@Common.QuickInfo": "Serial Number Requirement",
+     "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_SER_STOCK"
+    },
+    "EWMStockType": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.SAPObjectNodeTypeReference": "WarehouseStockType",
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Stock Type",
+     "@Common.Heading": "Typ"
+    },
+    "EWMStockOwner": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Owner"
+    },
+    "StockOwnerPartnerRole": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Partner Role",
+     "@Common.Heading": "Role",
+     "@Common.QuickInfo": "Partner Role of Owner"
+    },
+    "EWMStockUsage": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.SAPObjectNodeTypeReference": "WarehouseStockUsage",
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Usage",
+     "@Common.Heading": "Use",
+     "@Common.QuickInfo": "Stock Usage"
+    },
+    "EntitledToDisposeParty": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Disposal Party",
+     "@Common.Heading": "Disposal",
+     "@Common.QuickInfo": "Party Entitled to Dispose",
+     "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_ENTITLED"
+    },
+    "EntitledToDisposePartnerRole": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Partner Role",
+     "@Common.Heading": "Role",
+     "@Common.QuickInfo": "Partner Role of Party Entitled to Dispose"
+    },
+    "StockDocumentCategory": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Type",
+     "@Common.Heading": "Tpe",
+     "@Common.QuickInfo": "Special Reference Stock Type"
+    },
+    "StockDocumentNumber": {
+     "type": "cds.String",
+     "length": 35,
+     "notNull": true,
+     "@Common.Label": "Stock Reference Doc.",
+     "@Common.Heading": "Stock Reference Document",
+     "@Common.QuickInfo": "Reference Document for Special Reference Stock"
+    },
+    "StockItemNumber": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Sales Order Item",
+     "@Common.Heading": "SlsOrd.Itm",
+     "@Common.QuickInfo": "Sales Order Item for Sales Order Stock"
+    },
+    "WBSElementExternalID": {
+     "type": "cds.String",
+     "length": 24,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "WBS Element",
+     "@Common.QuickInfo": "Work Breakdown Structure Element (WBS Element) Edited",
+     "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=PS_POSID_EDIT"
+    },
+    "WBSElementInternalID": {
+     "type": "cds.String",
+     "length": 8,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "WBS Internal ID",
+     "@Common.Heading": "WBS Elem",
+     "@Common.QuickInfo": "WBS Element",
+     "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=PS_S4_PSPNR"
+    },
+    "SpecialStockIdfgSalesOrder": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "SD Document",
+     "@Common.Heading": "Document",
+     "@Common.QuickInfo": "Sales and Distribution Document Number",
+     "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=VBELN"
+    },
+    "SpecialStockIdfgSalesOrderItem": {
+     "type": "cds.String",
+     "length": 6,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "NUMC06",
+     "@Common.QuickInfo": "numc06"
+    },
+    "DocumentReltdStockDocCat": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Document Category",
+     "@Common.Heading": "Cat",
+     "@Common.QuickInfo": "Doc. Category for Doc. Reference and Doc.-Related Stock"
+    },
+    "WhseQualityInspectionType": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Inspection ID Type",
+     "@Common.Heading": "In.ID Ty."
+    },
+    "QualityInspectionDocUUID": {
+     "type": "cds.UUID",
+     "@Common.Label": "Inspection Object",
+     "@Common.QuickInfo": "Identification of a Quality Object"
+    },
+    "StockIdentificationNumber": {
+     "type": "cds.String",
+     "length": 20,
+     "notNull": true,
+     "@Common.Label": "Stock ID",
+     "@Common.QuickInfo": "Identification Number of Stock"
+    },
+    "DocumentReltdStockDocUUID": {
+     "type": "cds.UUID",
+     "@Common.Label": "Document ID",
+     "@Common.QuickInfo": "Doc. Identification for Document-Related Stocks"
+    },
+    "DocumentReltdStockDocItemUUID": {
+     "type": "cds.UUID",
+     "@Common.Label": "Document Item",
+     "@Common.QuickInfo": "Document Item for Document-Related Stocks"
+    },
+    "WhseTaskGoodsReceiptDateTime": {
+     "type": "cds.DateTime",
+     "@odata.Precision": 0,
+     "@odata.Type": "Edm.DateTimeOffset",
+     "@Common.Label": "GR Date",
+     "@Common.QuickInfo": "Date and Time of Goods Receipt",
+     "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLVS_WDATU_NOCONV"
+    },
+    "ShelfLifeExpirationDate": {
+     "type": "cds.Date",
+     "@Common.Label": "Expiration Date",
+     "@Common.Heading": "Expiration",
+     "@Common.QuickInfo": "Shelf Life Expiration Date"
+    },
+    "CountryOfOrigin": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.Label": "Country or Region of Origin",
+     "@Common.QuickInfo": "Country or Region of Origin",
+     "@Common.IsUpperCase": true,
+     "@Common.Heading": "Origin"
+    },
+    "MatlBatchIsInRstrcdUseStock": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Batch in restr.-use",
+     "@Common.Heading": "RU",
+     "@Common.QuickInfo": "Batch in Restricted-Use Stock"
+    },
+    "HndlgUnitItemCountedIsComplete": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "TRUE",
+     "@Common.QuickInfo": "Data element for domain BOOLE: TRUE (='X') and FALSE (=' ')"
+    },
+    "HndlgUnitItemCountedIsEmpty": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "TRUE",
+     "@Common.QuickInfo": "Data element for domain BOOLE: TRUE (='X') and FALSE (=' ')"
+    },
+    "HndlgUnitItemCountedIsNotExist": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "TRUE",
+     "@Common.QuickInfo": "Data element for domain BOOLE: TRUE (='X') and FALSE (=' ')"
+    },
+    "PackagingMaterial": {
+     "type": "cds.String",
+     "length": 18,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Packaging Material",
+     "@Common.Heading": "Pack.Mat.",
+     "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_PMAT"
+    },
+    "HandlingUnitType": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Handling Unit Type",
+     "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_HUTYP"
+    },
+    "EWMStorageBinIsEmpty": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "TRUE",
+     "@Common.QuickInfo": "Data element for domain BOOLE: TRUE (='X') and FALSE (=' ')"
+    },
+    "PInvIsZeroCount": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "TRUE",
+     "@Common.QuickInfo": "Data element for domain BOOLE: TRUE (='X') and FALSE (=' ')"
+    },
+    "RequestedQuantityUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUnit": true,
+     "@Common.Label": "Inv.-Managed UoM",
+     "@Common.Heading": "UoM",
+     "@Common.QuickInfo": "Inventory-Managed Unit of Measure"
+    },
+    "RequestedQuantity": {
+     "type": "cds.Decimal",
+     "precision": 31,
+     "scale": 14,
+     "notNull": true,
+     "@Measures.Unit": {
+      "=": "RequestedQuantityUnit"
+     },
+     "@Common.Label": "Quantity Entered",
+     "@Common.QuickInfo": "Quantity Entered in Physical Inventory"
+    },
+    "PInvItemChgUTCDateTime": {
+     "type": "cds.Timestamp",
+     "@odata.Precision": 7,
+     "@odata.Type": "Edm.DateTimeOffset",
+     "@Common.Label": "End Time Stamp",
+     "@Common.QuickInfo": "LIME Internal Time Stamp (YYYYMMDDhhmmss,mmmuuun)"
+    },
+    "SAP__Messages": {
+     "items": {
+      "type": "api_whse_physinvtryitem_2.SAP__Message",
+      "notNull": true
+     }
+    },
+    "_WhsePhysicalInventoryItem": {
+     "type": "cds.Association",
+     "target": "api_whse_physinvtryitem_2.WhsePhysicalInventoryItem",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "_WhsePhysicalInventoryItem",
+        "PhysicalInventoryItemNumber"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "PhysicalInventoryItemNumber"
+       ]
+      }
+     ]
+    },
+    "_WhsePhysicalInventorySrlNmbr": {
+     "type": "cds.Composition",
+     "target": "api_whse_physinvtryitem_2.WhsePhysicalInventorySrlNmbr",
+     "cardinality": {
+      "max": "*"
+     },
+     "on": [
+      {
+       "ref": [
+        "_WhsePhysicalInventorySrlNmbr",
+        "_WhsePhysicalInventoryCntItem"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "$self"
+       ]
+      }
+     ],
+     "@Common.Composition": true
+    }
+   },
+   "@Common.Label": "Warehouse Physical Inventory Count Item",
+   "@Common.SAPObjectNodeType.Name": "WhsePhysicalInventoryCountItem",
+   "@Common.Messages": {
+    "=": "SAP__Messages"
+   },
+   "@Capabilities.NavigationRestrictions.RestrictedProperties": [
+    {
+     "NavigationProperty": {
+      "=": "_WhsePhysicalInventoryItem"
+     },
+     "InsertRestrictions": {
+      "Insertable": false
+     },
+     "DeepUpdateSupport": {
+      "Supported": false
+     }
+    },
+    {
+     "NavigationProperty": {
+      "=": "_WhsePhysicalInventorySrlNmbr"
+     },
+     "InsertRestrictions": {
+      "Insertable": false
+     }
+    }
+   ],
+   "@Capabilities.SearchRestrictions.Searchable": false,
+   "@Capabilities.UpdateRestrictions.DeltaUpdateSupported": true,
+   "@Capabilities.UpdateRestrictions.NonUpdatableNavigationProperties": [
+    "_WhsePhysicalInventoryItem",
+    "_WhsePhysicalInventorySrlNmbr"
+   ],
+   "@Capabilities.UpdateRestrictions.QueryOptions.SelectSupported": true,
+   "@Capabilities.DeepUpdateSupport.ContentIDSupported": true,
+   "@Capabilities.DeleteRestrictions.Deletable": false,
+   "@Core.OptimisticConcurrency": [
+    "PInvItemChgUTCDateTime"
+   ],
+   "@Capabilities.FilterRestrictions.FilterExpressionRestrictions": [
+    {
+     "Property": {
+      "=": "RequestedQuantity"
+     },
+     "AllowedExpressions": "MultiValue"
+    }
+   ]
+  },
+  "api_whse_physinvtryitem_2.WhsePhysicalInventoryItem": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "EWMWarehouse": {
+     "key": true,
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.SAPObjectNodeTypeReference": "Warehouse",
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Warehouse Number",
+     "@Common.Heading": "WhN",
+     "@Common.QuickInfo": "Warehouse Number/Warehouse Complex",
+     "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLGNUM"
+    },
+    "PhysicalInventoryDocNumber": {
+     "key": true,
+     "type": "cds.String",
+     "length": 20,
+     "notNull": true,
+     "@Core.ComputedDefaultValue": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "PI Document Number",
+     "@Common.QuickInfo": "Physical Inventory Document Number"
+    },
+    "PhysicalInventoryDocYear": {
+     "key": true,
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Core.ComputedDefaultValue": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Document Year",
+     "@Common.QuickInfo": "Document Year of Physical Inventory Document"
+    },
+    "PhysicalInventoryItemNumber": {
+     "key": true,
+     "type": "cds.String",
+     "length": 6,
+     "notNull": true,
+     "@Core.ComputedDefaultValue": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Item"
+    },
+    "PhysicalInventoryDocumentUUID": {
+     "type": "cds.UUID",
+     "@Common.Label": "GUID",
+     "@Common.QuickInfo": "GUID for Physical Inventory Document"
+    },
+    "PhysicalInventoryDocumentType": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Phys. Inv. Procedure",
+     "@Common.Heading": "Physical Inventory Procedure",
+     "@Common.QuickInfo": "Physical Inventory Procedure (Document Type of Phys. Inv.)"
+    },
+    "EWMPhysInvtryDifferenceReason": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Reason f. Phys. Inv.",
+     "@Common.Heading": "Reason for Physical Inventory",
+     "@Common.QuickInfo": "Reason for Physical Inventory/Inventory Difference"
+    },
+    "EWMPhysInvtryReason": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Reason f. Phys. Inv.",
+     "@Common.Heading": "Reason for Physical Inventory",
+     "@Common.QuickInfo": "Reason for Physical Inventory/Inventory Difference"
+    },
+    "EWMPhysicalInventoryPriority": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.SAPObjectNodeTypeReference": "WhsePhysicalInventoryPriority",
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Phys. Inv. Prior.",
+     "@Common.Heading": "Phys. Inv. Priority",
+     "@Common.QuickInfo": "Priority of Physical Inventory"
+    },
+    "PhysicalInventoryStatusText": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "PI Status",
+     "@Common.Heading": "Physical Inventory Status",
+     "@Common.QuickInfo": "Physical Inventory Status"
+    },
+    "PhysInventoryCrtnUTCDateTime": {
+     "type": "cds.Timestamp",
+     "@odata.Precision": 7,
+     "@odata.Type": "Edm.DateTimeOffset",
+     "@Common.Label": "Creation Date",
+     "@Common.QuickInfo": "Creation Date of Physical Inventory Doc. Item (Time Stamp)"
+    },
+    "PInvCountedUTCDateTime": {
+     "type": "cds.Timestamp",
+     "@odata.Precision": 7,
+     "@odata.Type": "Edm.DateTimeOffset",
+     "@Common.Label": "Count Date PhysInv",
+     "@Common.Heading": "Date of Last Phys. Inv. Count",
+     "@Common.QuickInfo": "Entered Date of Physical Inventory Count (Time Stamp)"
+    },
+    "PhysicalInventoryCountUserName": {
+     "type": "cds.String",
+     "length": 12,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "User Name"
+    },
+    "WarehouseOrder": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Warehouse Order",
+     "@Common.Heading": "Whse Order",
+     "@Common.QuickInfo": "Warehouse Order Number"
+    },
+    "PInvDocumentItemIsPrinted": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "TRUE",
+     "@Common.QuickInfo": "Data element for domain BOOLE: TRUE (='X') and FALSE (=' ')"
+    },
+    "PhysicalInventoryIsBlock": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "TRUE",
+     "@Common.QuickInfo": "Data element for domain BOOLE: TRUE (='X') and FALSE (=' ')"
+    },
+    "PInvBookQuantityIsFreeze": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "TRUE",
+     "@Common.QuickInfo": "Data element for domain BOOLE: TRUE (='X') and FALSE (=' ')"
+    },
+    "EWMStorageType": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.SAPObjectNodeTypeReference": "WarehouseStorageType",
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Storage Type",
+     "@Common.Heading": "Ty.",
+     "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLGTYP"
+    },
+    "EWMStorageBin": {
+     "type": "cds.String",
+     "length": 18,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Storage Bin",
+     "@Common.Heading": "Bin",
+     "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLGPLA"
+    },
+    "PhysicalInventoryArea": {
+     "type": "cds.String",
+     "length": 20,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Phys. Inv. Area",
+     "@Common.QuickInfo": "Physical Inventory Area",
+     "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FLIME%2FPI_DE_PI_AREAD"
+    },
+    "ActivityArea": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Activity Area",
+     "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_AAREA"
+    },
+    "ProductUUID": {
+     "type": "cds.UUID",
+     "@Common.Label": "Product",
+     "@Common.QuickInfo": "Product UUID"
+    },
+    "Product": {
+     "type": "cds.String",
+     "length": 18,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Product",
+     "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=PRODUCTNUMBER"
+    },
+    "BatchUUID": {
+     "type": "cds.UUID",
+     "@Common.Label": "Batch"
+    },
+    "Batch": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true
+    },
+    "EWMStockType": {
+     "type": "cds.String",
+     "length": 2,
+     "notNull": true,
+     "@Common.SAPObjectNodeTypeReference": "WarehouseStockType",
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Stock Type",
+     "@Common.Heading": "Typ"
+    },
+    "EWMStockUsage": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.SAPObjectNodeTypeReference": "WarehouseStockUsage",
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Usage",
+     "@Common.Heading": "Use",
+     "@Common.QuickInfo": "Stock Usage"
+    },
+    "EWMStockOwner": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Owner"
+    },
+    "StockOwnerName": {
+     "type": "cds.String",
+     "length": 81,
+     "notNull": true
+    },
+    "EntitledToDisposeParty": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Disposal Party",
+     "@Common.Heading": "Disposal",
+     "@Common.QuickInfo": "Party Entitled to Dispose",
+     "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_ENTITLED"
+    },
+    "NameOfEntitledToDisposeParty": {
+     "type": "cds.String",
+     "length": 81,
+     "notNull": true
+    },
+    "StockDocumentCategory": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Type",
+     "@Common.Heading": "Tpe",
+     "@Common.QuickInfo": "Special Reference Stock Type"
+    },
+    "StockDocumentNumber": {
+     "type": "cds.String",
+     "length": 35,
+     "notNull": true,
+     "@Common.Label": "Stock Reference Doc.",
+     "@Common.Heading": "Stock Reference Document",
+     "@Common.QuickInfo": "Reference Document for Special Reference Stock"
+    },
+    "StockItemNumber": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Sales Order Item",
+     "@Common.Heading": "SlsOrd.Itm",
+     "@Common.QuickInfo": "Sales Order Item for Sales Order Stock"
+    },
+    "WBSElementExternalID": {
+     "type": "cds.String",
+     "length": 24,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "WBS Element",
+     "@Common.QuickInfo": "Work Breakdown Structure Element (WBS Element) Edited",
+     "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=PS_POSID_EDIT"
+    },
+    "WBSElementInternalID": {
+     "type": "cds.String",
+     "length": 8,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "WBS Internal ID",
+     "@Common.Heading": "WBS Elem",
+     "@Common.QuickInfo": "WBS Element",
+     "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=PS_S4_PSPNR"
+    },
+    "SpecialStockIdfgSalesOrder": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "SD Document",
+     "@Common.Heading": "Document",
+     "@Common.QuickInfo": "Sales and Distribution Document Number",
+     "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=VBELN"
+    },
+    "SpecialStockIdfgSalesOrderItem": {
+     "type": "cds.String",
+     "length": 6,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "NUMC06",
+     "@Common.QuickInfo": "numc06"
+    },
+    "PhysicalInventoryRefDocYear": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Document Year",
+     "@Common.QuickInfo": "Document Year of Physical Inventory Document"
+    },
+    "EWMRefPhysicalInventoryDoc": {
+     "type": "cds.String",
+     "length": 20,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "PI Document Number",
+     "@Common.QuickInfo": "Physical Inventory Document Number"
+    },
+    "PhysicalInventoryRefDocItem": {
+     "type": "cds.String",
+     "length": 6,
+     "notNull": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Item"
+    },
+    "PInvFreeDefinedRefText": {
+     "type": "cds.String",
+     "length": 70,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Document ID",
+     "@Common.Heading": "DocID",
+     "@Common.QuickInfo": "Document ID of Reference Document"
+    },
+    "PInvItemChgUTCDateTime": {
+     "type": "cds.Timestamp",
+     "@odata.Precision": 7,
+     "@odata.Type": "Edm.DateTimeOffset",
+     "@Common.Label": "End Time Stamp",
+     "@Common.QuickInfo": "LIME Internal Time Stamp (YYYYMMDDhhmmss,mmmuuun)"
+    },
+    "SAP__Messages": {
+     "items": {
+      "type": "api_whse_physinvtryitem_2.SAP__Message",
+      "notNull": true
+     }
+    },
+    "_WhsePhysicalInventoryCntItem": {
+     "type": "cds.Composition",
+     "target": "api_whse_physinvtryitem_2.WhsePhysicalInventoryCountItem",
+     "cardinality": {
+      "max": "*"
+     },
+     "on": [
+      {
+       "ref": [
+        "_WhsePhysicalInventoryCntItem",
+        "_WhsePhysicalInventoryItem"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "$self"
+       ]
+      }
+     ],
+     "@Common.Composition": true
+    }
+   },
+   "actions": {
+    "DeletePhysicalInventoryItem": {
+     "kind": "action",
+     "params": {}
+    }
+   },
+   "@Common.Label": "Warehouse Physical Inventory Item",
+   "@Common.SAPObjectNodeType.Name": "WarehousePhysicalInventoryDoc",
+   "@Common.Messages": {
+    "=": "SAP__Messages"
+   },
+   "@Capabilities.NavigationRestrictions.RestrictedProperties": [
+    {
+     "NavigationProperty": {
+      "=": "_WhsePhysicalInventoryCntItem"
+     },
+     "InsertRestrictions": {
+      "Insertable": false
+     }
+    }
+   ],
+   "@Capabilities.SearchRestrictions.Searchable": false,
+   "@Capabilities.InsertRestrictions.RequiredProperties": [
+    "EWMWarehouse",
+    "PhysicalInventoryDocumentType",
+    "EWMStorageBin"
+   ],
+   "@Capabilities.UpdateRestrictions.DeltaUpdateSupported": true,
+   "@Capabilities.UpdateRestrictions.NonUpdatableNavigationProperties": [
+    "_WhsePhysicalInventoryCntItem"
+   ],
+   "@Capabilities.UpdateRestrictions.QueryOptions.SelectSupported": true,
+   "@Capabilities.DeepUpdateSupport.ContentIDSupported": true,
+   "@Capabilities.DeleteRestrictions.Deletable": false,
+   "@Core.OptimisticConcurrency": [
+    "PInvItemChgUTCDateTime"
+   ]
+  },
+  "api_whse_physinvtryitem_2.WhsePhysicalInventorySrlNmbr": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "EWMWarehouse": {
+     "key": true,
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.SAPObjectNodeTypeReference": "Warehouse",
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Warehouse Number",
+     "@Common.Heading": "WhN",
+     "@Common.QuickInfo": "Warehouse Number/Warehouse Complex",
+     "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLGNUM"
+    },
+    "PhysicalInventoryDocNumber": {
+     "key": true,
+     "type": "cds.String",
+     "length": 20,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "PI Document Number",
+     "@Common.QuickInfo": "Physical Inventory Document Number"
+    },
+    "PhysicalInventoryDocYear": {
+     "key": true,
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Document Year",
+     "@Common.QuickInfo": "Document Year of Physical Inventory Document"
+    },
+    "PhysicalInventoryItemNumber": {
+     "key": true,
+     "type": "cds.String",
+     "length": 6,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsDigitSequence": true,
+     "@Common.Label": "Item"
+    },
+    "LineIndexOfPInvItem": {
+     "key": true,
+     "type": "cds.Integer",
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Table Row",
+     "@Common.Heading": "Row",
+     "@Common.QuickInfo": "Row Index of Internal Tables",
+     "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=SYTABIX"
+    },
+    "PInvQuantitySequence": {
+     "key": true,
+     "type": "cds.Integer",
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Table Row",
+     "@Common.Heading": "Row",
+     "@Common.QuickInfo": "Row Index of Internal Tables",
+     "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=SYTABIX"
+    },
+    "EWMPhysInvtrySrlNmbrSqnc": {
+     "key": true,
+     "type": "cds.Integer",
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Table Row",
+     "@Common.Heading": "Row",
+     "@Common.QuickInfo": "Row Index of Internal Tables",
+     "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=SYTABIX"
+    },
+    "EWMSerialNumber": {
+     "type": "cds.String",
+     "length": 30,
+     "notNull": true,
+     "@Common.Label": "Serial Number"
+    },
+    "SAP__Messages": {
+     "items": {
+      "type": "api_whse_physinvtryitem_2.SAP__Message",
+      "notNull": true
+     }
+    },
+    "_WhsePhysicalInventoryCntItem": {
+     "type": "cds.Association",
+     "target": "api_whse_physinvtryitem_2.WhsePhysicalInventoryCountItem",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "_WhsePhysicalInventoryCntItem",
+        "PInvQuantitySequence"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "PInvQuantitySequence"
+       ]
+      }
+     ]
+    },
+    "_WhsePhysicalInventoryItem": {
+     "type": "cds.Association",
+     "target": "api_whse_physinvtryitem_2.WhsePhysicalInventoryItem",
+     "cardinality": {
+      "max": 1
+     },
+     "keys": [],
+     "@Common.ReferentialConstraint": [
+      {
+       "Property": {
+        "=": "EWMWarehouse"
+       },
+       "ReferencedProperty": {
+        "=": "_WhsePhysicalInventoryItem/EWMWarehouse"
+       }
+      },
+      {
+       "Property": {
+        "=": "PhysicalInventoryDocNumber"
+       },
+       "ReferencedProperty": {
+        "=": "_WhsePhysicalInventoryItem/PhysicalInventoryDocNumber"
+       }
+      },
+      {
+       "Property": {
+        "=": "PhysicalInventoryDocYear"
+       },
+       "ReferencedProperty": {
+        "=": "_WhsePhysicalInventoryItem/PhysicalInventoryDocYear"
+       }
+      },
+      {
+       "Property": {
+        "=": "PhysicalInventoryItemNumber"
+       },
+       "ReferencedProperty": {
+        "=": "_WhsePhysicalInventoryItem/PhysicalInventoryItemNumber"
+       }
+      }
+     ]
+    }
+   },
+   "@Common.Label": "Physical Inventory Serial Number",
+   "@Common.SAPObjectNodeType.Name": "WhsePhysInventorySerialNumber",
+   "@Common.Messages": {
+    "=": "SAP__Messages"
+   },
+   "@Capabilities.NavigationRestrictions.RestrictedProperties": [
+    {
+     "NavigationProperty": {
+      "=": "_WhsePhysicalInventoryCntItem"
+     },
+     "InsertRestrictions": {
+      "Insertable": false
+     },
+     "DeepUpdateSupport": {
+      "Supported": false
+     }
+    },
+    {
+     "NavigationProperty": {
+      "=": "_WhsePhysicalInventoryItem"
+     },
+     "InsertRestrictions": {
+      "Insertable": false
+     },
+     "DeepUpdateSupport": {
+      "Supported": false
+     }
+    }
+   ],
+   "@Capabilities.SearchRestrictions.Searchable": false,
+   "@Capabilities.DeleteRestrictions.Deletable": false,
+   "@Capabilities.UpdateRestrictions.Updatable": false,
+   "@Capabilities.UpdateRestrictions.NonUpdatableNavigationProperties": [
+    "_WhsePhysicalInventoryCntItem",
+    "_WhsePhysicalInventoryItem"
+   ],
+   "@Capabilities.UpdateRestrictions.QueryOptions.SelectSupported": true
+  }
+ }
+}

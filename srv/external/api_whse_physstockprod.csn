@@ -1,0 +1,1158 @@
+{
+    "meta": {
+        "creator": "cds-dk 10.0.7"
+    },
+    "$version": "2.0",
+    "definitions": {
+        "api_whse_physstockprod.D_WhseRelPMtlReqStkRefSrlNrP": {
+            "kind": "type",
+            "@cds.external": true,
+            "elements": {
+                "EWMSerialNumber": {
+                    "type": "cds.String",
+                    "length": 30,
+                    "notNull": true,
+                    "@Common.Label": "Serial Number"
+                }
+            }
+        },
+        "api_whse_physstockprod.D_WhseScrapStkSrlNmbrP": {
+            "kind": "type",
+            "@cds.external": true,
+            "elements": {
+                "EWMSerialNumber": {
+                    "type": "cds.String",
+                    "length": 30,
+                    "notNull": true,
+                    "@Common.Label": "Serial Number"
+                }
+            }
+        },
+        "api_whse_physstockprod.D_WhseConsumeStkSrlNmbrP": {
+            "kind": "type",
+            "@cds.external": true,
+            "elements": {
+                "EWMSerialNumber": {
+                    "type": "cds.String",
+                    "length": 30,
+                    "notNull": true,
+                    "@Common.Label": "Serial Number"
+                }
+            }
+        },
+        "api_whse_physstockprod.D_WhseChgStkTypeSrlNmbrP": {
+            "kind": "type",
+            "@cds.external": true,
+            "elements": {
+                "EWMSerialNumber": {
+                    "type": "cds.String",
+                    "length": 30,
+                    "notNull": true,
+                    "@Common.Label": "Serial Number"
+                }
+            }
+        },
+        "api_whse_physstockprod.D_WhseChgProdOrBatSrlNmbrP": {
+            "kind": "type",
+            "@cds.external": true,
+            "elements": {
+                "EWMSerialNumber": {
+                    "type": "cds.String",
+                    "length": 30,
+                    "notNull": true,
+                    "@Common.Label": "Serial Number"
+                }
+            }
+        },
+        "api_whse_physstockprod.D_WhseChgStkOwAnUsgSrlNmbrP": {
+            "kind": "type",
+            "@cds.external": true,
+            "elements": {
+                "EWMSerialNumber": {
+                    "type": "cds.String",
+                    "length": 30,
+                    "notNull": true,
+                    "@Common.Label": "Serial Number"
+                }
+            }
+        },
+        "api_whse_physstockprod.D_WhseChgDsplPtySrlNmbrP": {
+            "kind": "type",
+            "@cds.external": true,
+            "elements": {
+                "EWMSerialNumber": {
+                    "type": "cds.String",
+                    "length": 30,
+                    "notNull": true,
+                    "@Common.Label": "Serial Number"
+                }
+            }
+        },
+        "api_whse_physstockprod.D_WhseChgSlOrOrPrjSrlNmbrP": {
+            "kind": "type",
+            "@cds.external": true,
+            "elements": {
+                "EWMSerialNumber": {
+                    "type": "cds.String",
+                    "length": 30,
+                    "notNull": true,
+                    "@Common.Label": "Serial Number"
+                }
+            }
+        },
+        "api_whse_physstockprod.SAP__Message": {
+            "kind": "type",
+            "@cds.external": true,
+            "elements": {
+                "code": {
+                    "type": "cds.String",
+                    "notNull": true
+                },
+                "message": {
+                    "type": "cds.String",
+                    "notNull": true
+                },
+                "target": {
+                    "type": "cds.String"
+                },
+                "additionalTargets": {
+                    "items": {
+                        "type": "cds.String",
+                        "notNull": true
+                    }
+                },
+                "transition": {
+                    "type": "cds.Boolean",
+                    "notNull": true
+                },
+                "numericSeverity": {
+                    "type": "cds.Integer",
+                    "@odata.Type": "Edm.Byte",
+                    "notNull": true
+                },
+                "longtextUrl": {
+                    "type": "cds.String"
+                }
+            }
+        },
+        "api_whse_physstockprod": {
+            "kind": "service",
+            "@cds.external": true,
+            "@CodeList.UnitsOfMeasure.Url": "../../../../default/iwbep/common/0001/$metadata",
+            "@CodeList.UnitsOfMeasure.CollectionPath": "UnitsOfMeasure",
+            "@Common.ApplyMultiUnitBehaviorForSortingAndFiltering": true,
+            "@Capabilities.FilterFunctions": [
+                "eq",
+                "ne",
+                "gt",
+                "ge",
+                "lt",
+                "le",
+                "and",
+                "or",
+                "contains",
+                "startswith",
+                "endswith",
+                "any",
+                "all"
+            ],
+            "@SAP__support.TechnicalInfoLinks.Url": "../../../../default/iwbep/common/0001/$metadata",
+            "@SAP__support.TechnicalInfoLinks.FunctionImport": "GetTechnicalInfoLinks",
+            "@Capabilities.SupportedFormats": [
+                "application/json",
+                "application/pdf"
+            ],
+            "@PDF.Features.DocumentDescriptionReference": "../../../../default/iwbep/common/0001/$metadata",
+            "@PDF.Features.DocumentDescriptionCollection": "MyDocumentDescriptions",
+            "@PDF.Features.ArchiveFormat": true,
+            "@PDF.Features.Border": true,
+            "@PDF.Features.CoverPage": true,
+            "@PDF.Features.FitToPage": true,
+            "@PDF.Features.FontName": true,
+            "@PDF.Features.FontSize": true,
+            "@PDF.Features.HeaderFooter": true,
+            "@PDF.Features.IANATimezoneFormat": true,
+            "@PDF.Features.Margin": true,
+            "@PDF.Features.Padding": true,
+            "@PDF.Features.ResultSizeDefault": 20000,
+            "@PDF.Features.ResultSizeMaximum": 20000,
+            "@PDF.Features.Signature": true,
+            "@PDF.Features.TextDirectionLayout": true,
+            "@PDF.Features.Treeview": true,
+            "@PDF.Features.UploadToFileShare": true,
+            "@Capabilities.BatchSupport.SupportedFormats": [
+                "application/json",
+                "multipart/mixed"
+            ],
+            "@Capabilities.KeyAsSegmentSupported": true,
+            "@Capabilities.AsynchronousRequestsSupported": true
+        },
+        "api_whse_physstockprod.WarehousePhysicalStockProducts": {
+            "kind": "entity",
+            "@cds.external": true,
+            "@cds.persistence.skip": true,
+            "elements": {
+                "ParentHandlingUnitUUID": {
+                    "key": true,
+                    "type": "cds.UUID",
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.Label": "Parent",
+                    "@Common.Heading": "Parent GUID",
+                    "@Common.QuickInfo": "Parent GUID"
+                },
+                "StockItemUUID": {
+                    "key": true,
+                    "type": "cds.UUID",
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.Label": "GUID Stock",
+                    "@Common.QuickInfo": "GUID Stock Item"
+                },
+                "EWMWarehouse": {
+                    "type": "cds.String",
+                    "length": 4,
+                    "notNull": true,
+                    "@Common.SAPObjectNodeTypeReference": "Warehouse",
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Warehouse Number",
+                    "@Common.Heading": "WhN",
+                    "@Common.QuickInfo": "Warehouse Number/Warehouse Complex",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLGNUM"
+                },
+                "Product": {
+                    "type": "cds.String",
+                    "length": 18,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Product",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=PRODUCTNUMBER"
+                },
+                "EWMStockType": {
+                    "type": "cds.String",
+                    "length": 2,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Stock Type",
+                    "@Common.Heading": "ST",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_CAT"
+                },
+                "EWMStockOwner": {
+                    "type": "cds.String",
+                    "length": 10,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Stock Owner"
+                },
+                "EntitledToDisposeParty": {
+                    "type": "cds.String",
+                    "length": 10,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Disposal Party",
+                    "@Common.Heading": "Disposal",
+                    "@Common.QuickInfo": "Party Entitled to Dispose",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_ENTITLED"
+                },
+                "EWMStockUsage": {
+                    "type": "cds.String",
+                    "length": 1,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Usage",
+                    "@Common.Heading": "Use",
+                    "@Common.QuickInfo": "Stock Usage"
+                },
+                "Batch": {
+                    "type": "cds.String",
+                    "length": 10,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Batch",
+                    "@Common.QuickInfo": "Batch Number",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=CHARG_D"
+                },
+                "StockDocumentCategory": {
+                    "type": "cds.String",
+                    "length": 3,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Special Reference Stock Type"
+                },
+                "StockDocumentNumber": {
+                    "type": "cds.String",
+                    "length": 35,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Stock Reference Document",
+                    "@Common.QuickInfo": "Stock Reference Document of a Sales Order or Project Stock"
+                },
+                "ExternalStockDocumentNumber": {
+                    "type": "cds.String",
+                    "length": 35,
+                    "notNull": true,
+                    "@Common.Label": "Stock Reference Doc.",
+                    "@Common.Heading": "Stock Reference Document",
+                    "@Common.QuickInfo": "Reference Document for Special Reference Stock"
+                },
+                "StockItemNumber": {
+                    "type": "cds.String",
+                    "length": 10,
+                    "notNull": true,
+                    "@Common.IsDigitSequence": true,
+                    "@Common.Label": "Sales Order Item",
+                    "@Common.Heading": "SlsOrd.Itm",
+                    "@Common.QuickInfo": "Sales Order Item for Sales Order Stock"
+                },
+                "EWMStockReferenceDocCategory": {
+                    "type": "cds.String",
+                    "length": 3,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Reference Document Category"
+                },
+                "EWMStockReferenceDocument": {
+                    "type": "cds.String",
+                    "length": 35,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Reference Document"
+                },
+                "EWMStockReferenceDocumentItem": {
+                    "type": "cds.String",
+                    "length": 10,
+                    "notNull": true,
+                    "@Common.IsDigitSequence": true,
+                    "@Common.Label": "Reference Document Item"
+                },
+                "StockIdentificationNumber": {
+                    "type": "cds.String",
+                    "length": 20,
+                    "notNull": true,
+                    "@Common.Label": "Stock ID",
+                    "@Common.QuickInfo": "Identification Number of Stock"
+                },
+                "WhseQualityInspectionType": {
+                    "type": "cds.String",
+                    "length": 1,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Quality Inspection Type"
+                },
+                "QualityInspectionDocument": {
+                    "type": "cds.String",
+                    "length": 35,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Quality Inspection",
+                    "@Common.Heading": "Quality Insp",
+                    "@Common.QuickInfo": "Inspection Lot or Inspection Document Number"
+                },
+                "EWMHghstLvlHandlingUnitNumber": {
+                    "type": "cds.String",
+                    "length": 20,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Highest-Level Handling Unit"
+                },
+                "HandlingUnitNumber": {
+                    "type": "cds.String",
+                    "length": 20,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Handling Unit"
+                },
+                "EWMStorageBin": {
+                    "type": "cds.String",
+                    "length": 18,
+                    "notNull": true,
+                    "@Common.Label": "Storage Bin",
+                    "@Common.Heading": "Stor. Bin",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_LGPLA"
+                },
+                "EWMStockQuantityInBaseUnit": {
+                    "type": "cds.Decimal",
+                    "precision": 31,
+                    "scale": 14,
+                    "notNull": true,
+                    "@Measures.Unit": {
+                        "=": "EWMStockQtyBaseUnitSAPCode"
+                    },
+                    "@Measures.UNECEUnit": {
+                        "=": "EWMStockQtyBaseUnitISOCode"
+                    },
+                    "@Common.Label": "Quantity in Base Unit",
+                    "@Common.QuickInfo": "Quantity in Base Unit of Measure"
+                },
+                "EWMStockQuantityBaseUnit": {
+                    "type": "cds.String",
+                    "length": 3,
+                    "notNull": true,
+                    "@Common.IsUnit": true,
+                    "@Common.Label": "Base Unit of Measure",
+                    "@Common.Heading": "BUn"
+                },
+                "EWMStockQtyBaseUnitISOCode": {
+                    "type": "cds.String",
+                    "length": 3,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "ISO Code",
+                    "@Common.Heading": "ISO",
+                    "@Common.QuickInfo": "ISO Code for Unit of Measurement",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=ISOCD_UNIT"
+                },
+                "EWMStockQtyBaseUnitSAPCode": {
+                    "type": "cds.String",
+                    "length": 3,
+                    "notNull": true,
+                    "@Common.Label": "Internal SAP Code",
+                    "@Common.QuickInfo": "Unit of Measurement, Internal SAP Code (No Conversion)"
+                },
+                "EWMStockQuantityAltvUnit": {
+                    "type": "cds.String",
+                    "length": 3,
+                    "notNull": true,
+                    "@Common.IsUnit": true,
+                    "@Common.Label": "Alternative Unit of Measure"
+                },
+                "EWMStockQtyAltvUnitISOCode": {
+                    "type": "cds.String",
+                    "length": 3,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "ISO Code",
+                    "@Common.Heading": "ISO",
+                    "@Common.QuickInfo": "ISO Code for Unit of Measurement",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=ISOCD_UNIT"
+                },
+                "EWMStockQtyAltvUnitSAPCode": {
+                    "type": "cds.String",
+                    "length": 3,
+                    "notNull": true,
+                    "@Common.Label": "Internal SAP Code",
+                    "@Common.QuickInfo": "Unit of Measurement, Internal SAP Code (No Conversion)"
+                },
+                "EWMLoadingOrNetWeight": {
+                    "type": "cds.Decimal",
+                    "precision": 15,
+                    "scale": 3,
+                    "notNull": true,
+                    "@Measures.Unit": {
+                        "=": "EWMLoadgOrNetWgtUntSAPCode"
+                    },
+                    "@Measures.UNECEUnit": {
+                        "=": "EWMLoadgOrNetWgtUntISOCode"
+                    },
+                    "@Common.Label": "Loading Weight",
+                    "@Common.QuickInfo": "Loading or Net Weight"
+                },
+                "EWMLoadingOrNetWeightUnit": {
+                    "type": "cds.String",
+                    "length": 3,
+                    "notNull": true,
+                    "@Common.IsUnit": true,
+                    "@Common.Label": "Weight Unit",
+                    "@Common.Heading": "Un",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_WGT_UOM"
+                },
+                "EWMLoadgOrNetWgtUntISOCode": {
+                    "type": "cds.String",
+                    "length": 3,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "ISO Code",
+                    "@Common.Heading": "ISO",
+                    "@Common.QuickInfo": "ISO Code for Unit of Measurement",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=ISOCD_UNIT"
+                },
+                "EWMLoadgOrNetWgtUntSAPCode": {
+                    "type": "cds.String",
+                    "length": 3,
+                    "notNull": true,
+                    "@Common.Label": "Internal SAP Code",
+                    "@Common.QuickInfo": "Unit of Measurement, Internal SAP Code (No Conversion)"
+                },
+                "EWMLoadingOrNetVolume": {
+                    "type": "cds.Decimal",
+                    "precision": 15,
+                    "scale": 3,
+                    "notNull": true,
+                    "@Measures.Unit": {
+                        "=": "EWMLoadgOrNetVolUntSAPCode"
+                    },
+                    "@Measures.UNECEUnit": {
+                        "=": "EWMLoadgOrNetVolUntISOCode"
+                    },
+                    "@Common.Label": "Loading Volume",
+                    "@Common.QuickInfo": "Loading or Net Volume"
+                },
+                "EWMLoadingOrNetVolumeUnit": {
+                    "type": "cds.String",
+                    "length": 3,
+                    "notNull": true,
+                    "@Common.IsUnit": true,
+                    "@Common.Label": "Volume Unit",
+                    "@Common.Heading": "VUn",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_VOL_UOM"
+                },
+                "EWMLoadgOrNetVolUntISOCode": {
+                    "type": "cds.String",
+                    "length": 3,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "ISO Code",
+                    "@Common.Heading": "ISO",
+                    "@Common.QuickInfo": "ISO Code for Unit of Measurement",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=ISOCD_UNIT"
+                },
+                "EWMLoadgOrNetVolUntSAPCode": {
+                    "type": "cds.String",
+                    "length": 3,
+                    "notNull": true,
+                    "@Common.Label": "Internal SAP Code",
+                    "@Common.QuickInfo": "Unit of Measurement, Internal SAP Code (No Conversion)"
+                },
+                "EWMStorageBinCapConsumptionVal": {
+                    "type": "cds.Decimal",
+                    "precision": 15,
+                    "scale": 3,
+                    "notNull": true,
+                    "@Common.Label": "Capacity Consumption",
+                    "@Common.Heading": "Capacity Consumpt."
+                },
+                "EWMGoodsReceiptDateTime": {
+                    "type": "cds.DateTime",
+                    "@odata.Precision": 0,
+                    "@odata.Type": "Edm.DateTimeOffset",
+                    "@Common.Label": "Goods Receipt Date",
+                    "@Common.Heading": "GR Date"
+                },
+                "WarehouseTimeZone": {
+                    "type": "cds.String",
+                    "length": 6,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Time Zone",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=TZNZONE"
+                },
+                "ShelfLifeExpirationDate": {
+                    "type": "cds.Date",
+                    "@Common.Label": "Expiration Date",
+                    "@Common.Heading": "Expiration",
+                    "@Common.QuickInfo": "Shelf Life Expiration Date"
+                },
+                "CountryOfOrigin": {
+                    "type": "cds.String",
+                    "length": 3,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Country/Region of Origin"
+                },
+                "EWMBatchIsInRestrictedUseStock": {
+                    "type": "cds.Boolean",
+                    "notNull": true,
+                    "@Common.Label": "Batch in Restricted Use"
+                },
+                "InspectionPartialLot": {
+                    "type": "cds.String",
+                    "length": 6,
+                    "notNull": true,
+                    "@Common.IsDigitSequence": true,
+                    "@Common.Label": "Partial Inspection Lot"
+                },
+                "EWMStockIsBlockedForInventory": {
+                    "type": "cds.Boolean",
+                    "notNull": true,
+                    "@Common.Label": "Stock Is Blocked by PI",
+                    "@Common.QuickInfo": "Stock Is Blocked by Physical Inventory"
+                },
+                "EWMConsolidationGroup": {
+                    "type": "cds.String",
+                    "length": 10,
+                    "notNull": true,
+                    "@Common.Label": "Consolidation Group",
+                    "@Common.Heading": "CnsGrp",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_DSTGRP"
+                },
+                "SerialNumberRequiredLevel": {
+                    "type": "cds.String",
+                    "length": 1,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Serial Number Requirement"
+                },
+                "EWMStorBinIsBlockedForPutaway": {
+                    "type": "cds.Boolean",
+                    "notNull": true,
+                    "@Common.Label": "Storage Bin Is Blocked for Putaway"
+                },
+                "EWMStorBinIsBlockedForRemoval": {
+                    "type": "cds.Boolean",
+                    "notNull": true,
+                    "@Common.Label": "Storage Bin Is Blocked for Removal"
+                },
+                "EWMStorBinIsBlockedDueToPInv": {
+                    "type": "cds.Boolean",
+                    "notNull": true,
+                    "@Common.Label": "Storage Bin Is Blocked by PI",
+                    "@Common.QuickInfo": "Storage Bin Is Blocked by Physical Inventory"
+                },
+                "EWMStorageType": {
+                    "type": "cds.String",
+                    "length": 4,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Storage Type",
+                    "@Common.Heading": "Ty.",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLGTYP"
+                },
+                "EWMStorageSection": {
+                    "type": "cds.String",
+                    "length": 4,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Storage Section",
+                    "@Common.Heading": "Sec.",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLGBER"
+                },
+                "EWMPhysStkMigrtnStsCode": {
+                    "type": "cds.String",
+                    "length": 1,
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "migration status",
+                    "@Common.QuickInfo": "Status of a silent data migration",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=SDM_MIGRATION_STATUS"
+                },
+                "SAP__Messages": {
+                    "items": {
+                        "type": "api_whse_physstockprod.SAP__Message",
+                        "notNull": true
+                    }
+                },
+                "_SerialNumber": {
+                    "type": "cds.Composition",
+                    "target": "api_whse_physstockprod.WhsePhysStockProdSerialNumber",
+                    "cardinality": {
+                        "max": "*"
+                    },
+                    "on": [
+                        {
+                            "ref": [
+                                "_SerialNumber",
+                                "_PhysStock"
+                            ]
+                        },
+                        "=",
+                        {
+                            "ref": [
+                                "$self"
+                            ]
+                        }
+                    ],
+                    "@Common.Composition": true
+                }
+            },
+            "actions": {
+                "ConsumeStock": {
+                    "kind": "action",
+                    "params": {
+                        "WarehouseMovementsReason": {
+                            "type": "cds.String",
+                            "length": 4,
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "@Common.Label": "Movement Reason",
+                            "@Common.Heading": "Reasn",
+                            "@Common.QuickInfo": "Reason for Movements in the Warehouse",
+                            "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_REASON"
+                        },
+                        "WarehouseMovementsText": {
+                            "type": "cds.String",
+                            "length": 50,
+                            "notNull": true,
+                            "@Common.Label": "Additional Text",
+                            "@Common.Heading": "Add. Text"
+                        },
+                        "EWMAccountAssignmentCategory": {
+                            "type": "cds.String",
+                            "length": 2,
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "@Common.Label": "Account Assignment Category"
+                        },
+                        "EWMAccountAssignmentObject": {
+                            "type": "cds.String",
+                            "length": 35,
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "@Common.Label": "Account Assignment Object"
+                        },
+                        "EWMGoodsMovementEntryUnit": {
+                            "type": "cds.String",
+                            "length": 3,
+                            "notNull": true,
+                            "@Common.IsUnit": true,
+                            "@Common.Label": "Unit Entered for Goods Movement"
+                        },
+                        "EWMGoodsMovementEntryQuantity": {
+                            "type": "cds.Decimal",
+                            "precision": 13,
+                            "scale": 3,
+                            "notNull": true,
+                            "@Measures.Unit": {
+                                "=": "EWMGoodsMovementEntryUnit"
+                            },
+                            "@Common.Label": "Quantity Entered for Goods Movement"
+                        },
+                        "_PhysStockProdSerialNumber": {
+                            "items": {
+                                "type": "api_whse_physstockprod.D_WhseConsumeStkSrlNmbrP",
+                                "notNull": true
+                            }
+                        }
+                    },
+                    "returns": {
+                        "type": "api_whse_physstockprod.WarehousePhysicalStockProducts",
+                        "notNull": true
+                    }
+                },
+                "ChangeSalesOrderOrProject": {
+                    "kind": "action",
+                    "params": {
+                        "StockDocumentCategory": {
+                            "type": "cds.String",
+                            "length": 3,
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "@Common.Label": "Type",
+                            "@Common.Heading": "Tpe",
+                            "@Common.QuickInfo": "Special Reference Stock Type"
+                        },
+                        "ExternalStockDocumentNumber": {
+                            "type": "cds.String",
+                            "length": 35,
+                            "notNull": true,
+                            "@Common.Label": "Stock Reference Doc.",
+                            "@Common.Heading": "Stock Reference Document",
+                            "@Common.QuickInfo": "Reference Document for Special Reference Stock"
+                        },
+                        "StockItemNumber": {
+                            "type": "cds.String",
+                            "length": 10,
+                            "notNull": true,
+                            "@Common.Label": "Sales Order Item",
+                            "@Common.Heading": "SlsOrd.Itm",
+                            "@Common.QuickInfo": "Sales Order Item for Sales Order Stock"
+                        },
+                        "EWMGoodsMovementEntryUnit": {
+                            "type": "cds.String",
+                            "length": 3,
+                            "notNull": true,
+                            "@Common.IsUnit": true,
+                            "@Common.Label": "Unit Entered for Goods Movement"
+                        },
+                        "EWMGoodsMovementEntryQuantity": {
+                            "type": "cds.Decimal",
+                            "precision": 13,
+                            "scale": 3,
+                            "notNull": true,
+                            "@Measures.Unit": {
+                                "=": "EWMGoodsMovementEntryUnit"
+                            },
+                            "@Common.Label": "Quantity Entered for Goods Movement"
+                        },
+                        "_PhysStockProdSerialNumber": {
+                            "items": {
+                                "type": "api_whse_physstockprod.D_WhseChgSlOrOrPrjSrlNmbrP",
+                                "notNull": true
+                            }
+                        }
+                    },
+                    "returns": {
+                        "type": "api_whse_physstockprod.WarehousePhysicalStockProducts",
+                        "notNull": true
+                    }
+                },
+                "ScrapStock": {
+                    "kind": "action",
+                    "params": {
+                        "WarehouseMovementsReason": {
+                            "type": "cds.String",
+                            "length": 4,
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "@Common.Label": "Movement Reason",
+                            "@Common.Heading": "Reasn",
+                            "@Common.QuickInfo": "Reason for Movements in the Warehouse",
+                            "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_REASON"
+                        },
+                        "WarehouseMovementsText": {
+                            "type": "cds.String",
+                            "length": 50,
+                            "notNull": true,
+                            "@Common.Label": "Additional Text",
+                            "@Common.Heading": "Add. Text"
+                        },
+                        "EWMAccountAssignmentCategory": {
+                            "type": "cds.String",
+                            "length": 2,
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "@Common.Label": "Account Assignment Category"
+                        },
+                        "EWMAccountAssignmentObject": {
+                            "type": "cds.String",
+                            "length": 35,
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "@Common.Label": "Account Assignment Object"
+                        },
+                        "EWMGoodsMovementEntryUnit": {
+                            "type": "cds.String",
+                            "length": 3,
+                            "notNull": true,
+                            "@Common.IsUnit": true,
+                            "@Common.Label": "Unit Entered for Goods Movement"
+                        },
+                        "EWMGoodsMovementEntryQuantity": {
+                            "type": "cds.Decimal",
+                            "precision": 13,
+                            "scale": 3,
+                            "notNull": true,
+                            "@Measures.Unit": {
+                                "=": "EWMGoodsMovementEntryUnit"
+                            },
+                            "@Common.Label": "Quantity Entered for Goods Movement"
+                        },
+                        "_PhysStockProdSerialNumber": {
+                            "items": {
+                                "type": "api_whse_physstockprod.D_WhseScrapStkSrlNmbrP",
+                                "notNull": true
+                            }
+                        }
+                    },
+                    "returns": {
+                        "type": "api_whse_physstockprod.WarehousePhysicalStockProducts",
+                        "notNull": true
+                    }
+                },
+                "RelProdnMatlReqStockReference": {
+                    "kind": "action",
+                    "params": {
+                        "EWMGoodsMovementEntryUnit": {
+                            "type": "cds.String",
+                            "length": 3,
+                            "notNull": true,
+                            "@Common.IsUnit": true,
+                            "@Common.Label": "Unit Entered for Goods Movement"
+                        },
+                        "EWMGoodsMovementEntryQuantity": {
+                            "type": "cds.Decimal",
+                            "precision": 13,
+                            "scale": 3,
+                            "notNull": true,
+                            "@Measures.Unit": {
+                                "=": "EWMGoodsMovementEntryUnit"
+                            },
+                            "@Common.Label": "Quantity Entered for Goods Movement"
+                        },
+                        "_PhysStockProdSerialNumber": {
+                            "items": {
+                                "type": "api_whse_physstockprod.D_WhseRelPMtlReqStkRefSrlNrP",
+                                "notNull": true
+                            }
+                        }
+                    },
+                    "returns": {
+                        "type": "api_whse_physstockprod.WarehousePhysicalStockProducts",
+                        "notNull": true
+                    }
+                },
+                "ChangeDisposalParty": {
+                    "kind": "action",
+                    "params": {
+                        "EntitledToDisposeParty": {
+                            "type": "cds.String",
+                            "length": 10,
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "@Common.Label": "Disposal Party",
+                            "@Common.Heading": "Disposal",
+                            "@Common.QuickInfo": "Party Entitled to Dispose",
+                            "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_ENTITLED"
+                        },
+                        "Batch": {
+                            "type": "cds.String",
+                            "length": 10,
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "@Common.Label": "Batch",
+                            "@Common.QuickInfo": "Batch Number",
+                            "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=CHARG_D"
+                        },
+                        "EWMGoodsMovementEntryUnit": {
+                            "type": "cds.String",
+                            "length": 3,
+                            "notNull": true,
+                            "@Common.IsUnit": true,
+                            "@Common.Label": "Unit Entered for Goods Movement"
+                        },
+                        "EWMGoodsMovementEntryQuantity": {
+                            "type": "cds.Decimal",
+                            "precision": 13,
+                            "scale": 3,
+                            "notNull": true,
+                            "@Measures.Unit": {
+                                "=": "EWMGoodsMovementEntryUnit"
+                            },
+                            "@Common.Label": "Quantity Entered for Goods Movement"
+                        },
+                        "_PhysStockProdSerialNumber": {
+                            "items": {
+                                "type": "api_whse_physstockprod.D_WhseChgDsplPtySrlNmbrP",
+                                "notNull": true
+                            }
+                        }
+                    },
+                    "returns": {
+                        "type": "api_whse_physstockprod.WarehousePhysicalStockProducts",
+                        "notNull": true
+                    }
+                },
+                "ChangeProductOrBatch": {
+                    "kind": "action",
+                    "params": {
+                        "Product": {
+                            "type": "cds.String",
+                            "length": 40,
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "@Common.Label": "Material",
+                            "@Common.QuickInfo": "Material Number",
+                            "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=MATNR"
+                        },
+                        "Batch": {
+                            "type": "cds.String",
+                            "length": 10,
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "@Common.Label": "Batch",
+                            "@Common.QuickInfo": "Batch Number",
+                            "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=CHARG_D"
+                        },
+                        "EWMGoodsMovementEntryUnit": {
+                            "type": "cds.String",
+                            "length": 3,
+                            "notNull": true,
+                            "@Common.IsUnit": true,
+                            "@Common.Label": "Unit Entered for Goods Movement"
+                        },
+                        "EWMGoodsMovementEntryQuantity": {
+                            "type": "cds.Decimal",
+                            "precision": 13,
+                            "scale": 3,
+                            "notNull": true,
+                            "@Measures.Unit": {
+                                "=": "EWMGoodsMovementEntryUnit"
+                            },
+                            "@Common.Label": "Quantity Entered for Goods Movement"
+                        },
+                        "_PhysStockProdSerialNumber": {
+                            "items": {
+                                "type": "api_whse_physstockprod.D_WhseChgProdOrBatSrlNmbrP",
+                                "notNull": true
+                            }
+                        }
+                    },
+                    "returns": {
+                        "type": "api_whse_physstockprod.WarehousePhysicalStockProducts",
+                        "notNull": true
+                    }
+                },
+                "ChangeStockOwnerAndUsage": {
+                    "kind": "action",
+                    "params": {
+                        "EWMStockOwner": {
+                            "type": "cds.String",
+                            "length": 10,
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "@Common.Label": "Owner",
+                            "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_OWNER"
+                        },
+                        "EWMStockUsage": {
+                            "type": "cds.String",
+                            "length": 1,
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "@Common.Label": "Stock Usage"
+                        },
+                        "EWMGoodsMovementEntryUnit": {
+                            "type": "cds.String",
+                            "length": 3,
+                            "notNull": true,
+                            "@Common.IsUnit": true,
+                            "@Common.Label": "Unit Entered for Goods Movement"
+                        },
+                        "EWMGoodsMovementEntryQuantity": {
+                            "type": "cds.Decimal",
+                            "precision": 13,
+                            "scale": 3,
+                            "notNull": true,
+                            "@Measures.Unit": {
+                                "=": "EWMGoodsMovementEntryUnit"
+                            },
+                            "@Common.Label": "Quantity Entered for Goods Movement"
+                        },
+                        "_PhysStockProdSerialNumber": {
+                            "items": {
+                                "type": "api_whse_physstockprod.D_WhseChgStkOwAnUsgSrlNmbrP",
+                                "notNull": true
+                            }
+                        }
+                    },
+                    "returns": {
+                        "type": "api_whse_physstockprod.WarehousePhysicalStockProducts",
+                        "notNull": true
+                    }
+                },
+                "ChangeStockType": {
+                    "kind": "action",
+                    "params": {
+                        "EWMStockType": {
+                            "type": "cds.String",
+                            "length": 2,
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "@Common.Label": "Stock Type",
+                            "@Common.Heading": "ST",
+                            "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_CAT"
+                        },
+                        "EWMGoodsMovementEntryUnit": {
+                            "type": "cds.String",
+                            "length": 3,
+                            "notNull": true,
+                            "@Common.IsUnit": true,
+                            "@Common.Label": "Unit Entered for Goods Movement"
+                        },
+                        "EWMGoodsMovementEntryQuantity": {
+                            "type": "cds.Decimal",
+                            "precision": 13,
+                            "scale": 3,
+                            "notNull": true,
+                            "@Measures.Unit": {
+                                "=": "EWMGoodsMovementEntryUnit"
+                            },
+                            "@Common.Label": "Quantity Entered for Goods Movement"
+                        },
+                        "_PhysStockProdSerialNumber": {
+                            "items": {
+                                "type": "api_whse_physstockprod.D_WhseChgStkTypeSrlNmbrP",
+                                "notNull": true
+                            }
+                        }
+                    },
+                    "returns": {
+                        "type": "api_whse_physstockprod.WarehousePhysicalStockProducts",
+                        "notNull": true
+                    }
+                }
+            },
+            "@Common.Label": "Warehouse Physical Stock by Product",
+            "@Common.Messages": {
+                "=": "SAP__Messages"
+            },
+            "@Capabilities.SearchRestrictions.Searchable": false,
+            "@Capabilities.FilterRestrictions.NonFilterableProperties": [
+                "EWMPhysStkMigrtnStsCode"
+            ],
+            "@Capabilities.SortRestrictions.NonSortableProperties": [
+                "EWMPhysStkMigrtnStsCode"
+            ],
+            "@Capabilities.InsertRestrictions.Insertable": false,
+            "@Capabilities.DeleteRestrictions.Deletable": false,
+            "@Capabilities.UpdateRestrictions.Updatable": false,
+            "@Capabilities.UpdateRestrictions.NonUpdatableNavigationProperties": [
+                "_SerialNumber"
+            ],
+            "@Capabilities.UpdateRestrictions.QueryOptions.SelectSupported": true
+        },
+        "api_whse_physstockprod.WhsePhysStockProdSerialNumber": {
+            "kind": "entity",
+            "@cds.external": true,
+            "@cds.persistence.skip": true,
+            "elements": {
+                "ParentHandlingUnitUUID": {
+                    "key": true,
+                    "type": "cds.UUID",
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.Label": "Parent",
+                    "@Common.Heading": "Parent GUID",
+                    "@Common.QuickInfo": "Parent GUID"
+                },
+                "StockItemUUID": {
+                    "key": true,
+                    "type": "cds.UUID",
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.Label": "GUID Stock",
+                    "@Common.QuickInfo": "GUID Stock Item"
+                },
+                "EWMSerialNumber": {
+                    "key": true,
+                    "type": "cds.String",
+                    "length": 30,
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "30 Characters"
+                },
+                "EWMWarehouse": {
+                    "type": "cds.String",
+                    "length": 4,
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Warehouse Number",
+                    "@Common.Heading": "WhN",
+                    "@Common.QuickInfo": "Warehouse Number/Warehouse Complex",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLGNUM"
+                },
+                "_PhysStock": {
+                    "type": "cds.Association",
+                    "target": "api_whse_physstockprod.WarehousePhysicalStockProducts",
+                    "cardinality": {
+                        "max": 1
+                    },
+                    "on": [
+                        {
+                            "ref": [
+                                "_PhysStock",
+                                "StockItemUUID"
+                            ]
+                        },
+                        "=",
+                        {
+                            "ref": [
+                                "StockItemUUID"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "@Common.Label": "Whse Phys Stock by Product Serial Nmbr",
+            "@Capabilities.SearchRestrictions.Searchable": false,
+            "@Capabilities.InsertRestrictions.Insertable": false,
+            "@Capabilities.DeleteRestrictions.Deletable": false,
+            "@Capabilities.UpdateRestrictions.Updatable": false,
+            "@Capabilities.UpdateRestrictions.NonUpdatableNavigationProperties": [
+                "_PhysStock"
+            ],
+            "@Capabilities.UpdateRestrictions.QueryOptions.SelectSupported": true
+        }
+    }
+}

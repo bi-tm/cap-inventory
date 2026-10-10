@@ -1,0 +1,47 @@
+{
+  "name": "inventory1",
+  "version": "1.0.0",
+  "dependencies": {
+    "@cap-js/postgres": "^3",
+    "@sap-cloud-sdk/connectivity": "^4.9.1",
+    "@sap-cloud-sdk/http-client": "^4",
+    "@sap-cloud-sdk/resilience": "^4",
+    "@sap/cds": "^10",
+    "@sap/xssec": "^4"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^3",
+    "@sap/cds-dk": "^10"
+  },
+  "scripts": {
+    "start": "cds-serve"
+  },
+  "private": true,
+  "cds": {
+    "connectivity": true,
+    "destinations": true,
+    "html5-repo": true,
+    "requires": {
+      "[production]": {
+        "auth": "xsuaa"
+      },
+      "api_whse_physstockprod": {
+        "kind": "odata-v4",
+        "model": "srv/external/api_whse_physstockprod",
+        "credentials": {
+          "destination": "XAN-100-INVENTORY"
+        }
+      },
+      "api_whse_physinvtryitem_2": {
+        "kind": "odata-v4",
+        "model": "srv/external/api_whse_physinvtryitem_2",
+        "[development]": {
+          "credentials": {
+            "destination": "XAN-100-INVENTORY",
+            "path": "/sap/opu/odata4/sap/api_whse_physinvtryitem_2/srvd_a2x/sap/whsephysicalinventorydoc/0001/"
+          }
+        }
+      }
+    }
+  }
+}
