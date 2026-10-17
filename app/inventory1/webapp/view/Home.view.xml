@@ -1,0 +1,148 @@
+<mvc:View
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  xmlns:l="sap.ui.layout"
+  xmlns:mvc="sap.ui.core.mvc"
+  core:require="{
+      Alpha: 'inventory1/model/Alpha'
+  }"
+  controllerName="inventory1.controller.Home"
+  displayBlock="true"
+>
+  <Page
+    enableScrolling="true"
+    id="loginPage"
+    navButtonPress=".navigateToLaunchpad"
+    showNavButton="false"
+    title="{i18n>appTitle}"
+  >
+    <core:Fragment
+      fragmentName="inventory1.view.fragment.ErrorStrip"
+      type="XML"
+    />
+    <subHeader>
+      <Toolbar>
+        <Label
+          class="sapUiTinyMarginEnd"
+          labelFor="idScan"
+          text="{i18n>scan}:"
+          width="15rem"
+        />
+        <Input
+          change=".onScanChanged"
+          id="idScan"
+          value="{/scan}"
+          width="100%"
+        />
+        <ToolbarSpacer />
+        <Button
+          icon="sap-icon://refresh"
+          press=".onRefresh"
+          tooltip="{i18n>refresh}"
+          type="Transparent"
+        />
+      </Toolbar>
+    </subHeader>
+    <content>
+      <!--
+      <MessageStrip
+        class="sapUiSmallMarginBeginEnd sapUiSmallMarginTop"
+        id="homeMessageStrip"
+        showCloseButton="false"
+        visible="false"
+      />
+    -->
+      <Panel class="sapFSemanticPageAlignContent" width="auto">
+        <List
+          busy="{/isLoading}"
+          busyIndicatorDelay="1"
+          class="sapUiResponsiveMargin"
+          headerText="{i18n>piDocs}"
+          id="idPidocs"
+          itemPress=".onOpenPiDocSetListItemPress"
+          items="{/piDocuments}"
+          width="auto"
+        >
+          <items>
+            <CustomListItem type="Active">
+              <l:Grid
+                defaultSpan="XL3 L3 M3 S6"
+                hSpacing="0"
+                vSpacing="0.5"
+                width="100%"
+              >
+                <!-- Belegnummer Positionsnummer -->
+                <VBox class="sapUiTinyMarginTop">
+                  <Label labelFor="piDocNoId" text="{i18n>piDocNo}" />
+                  <Text
+                    emptyIndicatorMode="On"
+                    id="piDocNoId"
+                    text="{ path:'docNumber', type:'Alpha' } - {itemNo}"
+                  />
+                </VBox>
+                <!-- Lagerplatz -->
+                <VBox class="sapUiTinyMarginTop">
+                  <Label labelFor="piLgplaId" text="{i18n>piBin}" />
+                  <Text emptyIndicatorMode="On" id="piLgplaId" text="{lgpla}" />
+                </VBox>
+                <!-- Anzahl HU-->
+                <VBox class="sapUiTinyMarginTop">
+                  <Label labelFor="countOfHuId" text="{i18n>countOfHu}" />
+                  <HBox>
+                    <Text
+                      class="sapUiTinyMarginEnd"
+                      emptyIndicatorMode="On"
+                      id="countOfHuId"
+                      text="{countOfHu}"
+                    />
+                    <core:Icon
+                      src="sap-icon://dimension"
+                      visible="{= ${countOfHu} &gt; 1 }"
+                    />
+                  </HBox>
+                </VBox>
+                <!-- Zuordnung -->
+                <VBox class="sapUiTinyMarginTop">
+                  <Label
+                    labelFor="piUnassign"
+                    text="{= ${assigned} ? ${i18n>piDocAssigned} : '' }"
+                  />
+                  <Button
+                    class="sapUiNoMargin"
+                    icon="sap-icon://undo"
+                    id="piUnassign"
+                    press="onUnassignPressed"
+                    type="Transparent"
+                    visible="{assigned}"
+                  />
+                </VBox>
+              </l:Grid>
+            </CustomListItem>
+          </items>
+        </List>
+      </Panel>
+    </content>
+    <footer>
+      <Toolbar>
+        <Button
+          icon="sap-icon://alert"
+          press=".onMessagesButtonPress"
+          text="{=${message>/}.length}"
+          type="Emphasized"
+          visible="{=${message>/}.length > 0}"
+        />
+        <ToolbarSpacer />
+      </Toolbar>
+    </footer>
+  </Page>
+  <mvc:dependents>
+    <core:Fragment
+      fragmentName="inventory1.view.fragment.EqualHuQuestion"
+      type="XML"
+    />
+    <core:Fragment
+      fragmentName="inventory1.view.fragment.EmptyBinQuestion"
+      type="XML"
+    />
+  </mvc:dependents>
+</mvc:View>

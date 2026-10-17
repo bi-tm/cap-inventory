@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<edmx:Edmx
+  xmlns="http://docs.oasis-open.org/odata/ns/edm"
+  xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
+  Version="4.0"
+>
+  <edmx:Reference
+    Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value"
+  >
+    <edmx:Include
+      Alias="Communication"
+      Namespace="com.sap.vocabularies.Communication.v1"
+    />
+  </edmx:Reference>
+  <edmx:Reference
+    Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='LOCAL')/$value"
+  >
+    <edmx:Include
+      Alias="PersonalData"
+      Namespace="com.sap.vocabularies.PersonalData.v1"
+    />
+  </edmx:Reference>
+  <edmx:Reference
+    Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_ANALYTICS',Version='0001',SAP__Origin='LOCAL')/$value"
+  >
+    <edmx:Include
+      Alias="Analytics"
+      Namespace="com.sap.vocabularies.Analytics.v1"
+    />
+  </edmx:Reference>
+  <edmx:Reference
+    Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value"
+  >
+    <edmx:Include
+      Alias="SAP__common"
+      Namespace="com.sap.vocabularies.Common.v1"
+    />
+  </edmx:Reference>
+  <edmx:Reference
+    Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_MEASURES',Version='0001',SAP__Origin='LOCAL')/$value"
+  >
+    <edmx:Include Alias="SAP__measures" Namespace="Org.OData.Measures.V1" />
+  </edmx:Reference>
+  <edmx:Reference
+    Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CORE',Version='0001',SAP__Origin='LOCAL')/$value"
+  >
+    <edmx:Include Alias="SAP__core" Namespace="Org.OData.Core.V1" />
+  </edmx:Reference>
+  <edmx:Reference
+    Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL')/$value"
+  >
+    <edmx:Include
+      Alias="SAP__capabilities"
+      Namespace="Org.OData.Capabilities.V1"
+    />
+  </edmx:Reference>
+  <edmx:Reference
+    Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='LOCAL')/$value"
+  >
+    <edmx:Include
+      Alias="SAP__aggregation"
+      Namespace="Org.OData.Aggregation.V1"
+    />
+  </edmx:Reference>
+  <edmx:Reference
+    Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_VALIDATION',Version='0001',SAP__Origin='LOCAL')/$value"
+  >
+    <edmx:Include Alias="SAP__validation" Namespace="Org.OData.Validation.V1" />
+  </edmx:Reference>
+  <edmx:Reference
+    Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CODELIST',Version='0001',SAP__Origin='LOCAL')/$value"
+  >
+    <edmx:Include
+      Alias="SAP__CodeList"
+      Namespace="com.sap.vocabularies.CodeList.v1"
+    />
+  </edmx:Reference>
+  <edmx:Reference
+    Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_UI',Version='0001',SAP__Origin='LOCAL')/$value"
+  >
+    <edmx:Include Alias="SAP__UI" Namespace="com.sap.vocabularies.UI.v1" />
+  </edmx:Reference>
+  <edmx:Reference
+    Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_HTML5',Version='0001',SAP__Origin='LOCAL')/$value"
+  >
+    <edmx:Include
+      Alias="SAP__HTML5"
+      Namespace="com.sap.vocabularies.HTML5.v1"
+    />
+  </edmx:Reference>
+  <edmx:Reference
+    Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PDF',Version='0001',SAP__Origin='LOCAL')/$value"
+  >
+    <edmx:Include Alias="SAP__PDF" Namespace="com.sap.vocabularies.PDF.v1" />
+  </edmx:Reference>
+  <edmx:Reference
+    Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_SESSION',Version='0001',SAP__Origin='LOCAL')/$value"
+  >
+    <edmx:Include
+      Alias="SAP__session"
+      Namespace="com.sap.vocabularies.Session.v1"
+    />
+  </edmx:Reference>
+  <edmx:DataServices>
+    <Schema
+      Alias="SAP__self"
+      Namespace="com.sap.gateway.srvd_a2x.zew_ui_user_param_v4.v0001"
+    >
+      <Annotation String="1.0.0" Term="SAP__core.SchemaVersion" />
+      <EntityType Name="UserParamType">
+        <Key>
+          <PropertyRef Name="Username" />
+        </Key>
+        <Property
+          MaxLength="12"
+          Name="Username"
+          Nullable="false"
+          Type="Edm.String"
+        />
+        <Property
+          MaxLength="4"
+          Name="Warehouse"
+          Nullable="false"
+          Type="Edm.String"
+        />
+        <Property
+          MaxLength="4"
+          Name="Plant"
+          Nullable="false"
+          Type="Edm.String"
+        />
+        <Property
+          MaxLength="18"
+          Name="Rsrc"
+          Nullable="false"
+          Type="Edm.String"
+        />
+      </EntityType>
+      <ComplexType Name="ZEWVC_UI_USER_PARAM">
+        <Property
+          MaxLength="4"
+          Name="Plant"
+          Nullable="false"
+          Type="Edm.String"
+        />
+        <Property
+          MaxLength="18"
+          Name="Rsrc"
+          Nullable="false"
+          Type="Edm.String"
+        />
+        <Property
+          MaxLength="12"
+          Name="Username"
+          Nullable="false"
+          Type="Edm.String"
+        />
+        <Property
+          MaxLength="4"
+          Name="Warehouse"
+          Nullable="false"
+          Type="Edm.String"
+        />
+      </ComplexType>
+      <ComplexType Name="ZEWVC_UI_RSRC">
+        <Property
+          MaxLength="10"
+          Name="Queue"
+          Nullable="false"
+          Type="Edm.String"
+        />
+        <Property
+          MaxLength="18"
+          Name="Rsrc"
+          Nullable="false"
+          Type="Edm.String"
+        />
+        <Property
+          MaxLength="4"
+          Name="RsrcGroup"
+          Nullable="false"
+          Type="Edm.String"
+        />
+        <Property
+          MaxLength="4"
+          Name="RsrcType"
+          Nullable="false"
+          Type="Edm.String"
+        />
+        <Property
+          MaxLength="12"
+          Name="Username"
+          Nullable="false"
+          Type="Edm.String"
+        />
+        <Property
+          MaxLength="4"
+          Name="Warehouse"
+          Nullable="false"
+          Type="Edm.String"
+        />
+      </ComplexType>
+      <Function IsBound="true" Name="RsrcLogoff">
+        <Parameter
+          Name="_it"
+          Nullable="false"
+          Type="Collection(com.sap.gateway.srvd_a2x.zew_ui_user_param_v4.v0001.UserParamType)"
+        />
+        <Parameter
+          MaxLength="4"
+          Name="Warehouse"
+          Nullable="false"
+          Type="Edm.String"
+        />
+        <Parameter
+          MaxLength="18"
+          Name="Rsrc"
+          Nullable="false"
+          Type="Edm.String"
+        />
+        <ReturnType
+          Nullable="false"
+          Type="com.sap.gateway.srvd_a2x.zew_ui_user_param_v4.v0001.ZEWVC_UI_RSRC"
+        />
+      </Function>
+      <Function IsBound="true" Name="GetUserParam">
+        <Parameter
+          Name="_it"
+          Nullable="false"
+          Type="Collection(com.sap.gateway.srvd_a2x.zew_ui_user_param_v4.v0001.UserParamType)"
+        />
+        <ReturnType
+          Nullable="false"
+          Type="com.sap.gateway.srvd_a2x.zew_ui_user_param_v4.v0001.ZEWVC_UI_USER_PARAM"
+        />
+      </Function>
+      <Function IsBound="true" Name="RsrcLogon">
+        <Parameter
+          Name="_it"
+          Nullable="false"
+          Type="Collection(com.sap.gateway.srvd_a2x.zew_ui_user_param_v4.v0001.UserParamType)"
+        />
+        <Parameter
+          MaxLength="4"
+          Name="Warehouse"
+          Nullable="false"
+          Type="Edm.String"
+        />
+        <Parameter
+          MaxLength="18"
+          Name="Rsrc"
+          Nullable="false"
+          Type="Edm.String"
+        />
+        <ReturnType
+          Nullable="false"
+          Type="com.sap.gateway.srvd_a2x.zew_ui_user_param_v4.v0001.ZEWVC_UI_RSRC"
+        />
+      </Function>
+      <EntityContainer Name="Container">
+        <EntitySet
+          EntityType="com.sap.gateway.srvd_a2x.zew_ui_user_param_v4.v0001.UserParamType"
+          Name="UserParam"
+        />
+      </EntityContainer>
+      <Annotations Target="SAP__self.UserParamType/Username">
+        <Annotation Term="SAP__common.IsUpperCase" />
+        <Annotation String="Benutzer" Term="SAP__common.Label" />
+        <Annotation String="Benutzername" Term="SAP__common.Heading" />
+        <Annotation
+          String="Benutzername im Benutzerstamm"
+          Term="SAP__common.QuickInfo"
+        />
+      </Annotations>
+      <Annotations Target="SAP__self.UserParamType/Warehouse">
+        <Annotation Term="SAP__common.IsUpperCase" />
+        <Annotation String="Lagernummer" Term="SAP__common.Label" />
+        <Annotation String="LNr" Term="SAP__common.Heading" />
+        <Annotation
+          String="Lagernummer/Lagerkomplex"
+          Term="SAP__common.QuickInfo"
+        />
+      </Annotations>
+      <Annotations Target="SAP__self.UserParamType/Plant">
+        <Annotation Term="SAP__common.IsUpperCase" />
+        <Annotation String="Werk" Term="SAP__common.Label" />
+      </Annotations>
+      <Annotations Target="SAP__self.UserParamType">
+        <Annotation String="User-Parameter" Term="SAP__common.Label" />
+      </Annotations>
+      <Annotations Target="SAP__self.Container/UserParam">
+        <Annotation Term="SAP__capabilities.SearchRestrictions">
+          <Record>
+            <PropertyValue Bool="false" Property="Searchable" />
+          </Record>
+        </Annotation>
+        <Annotation Term="SAP__capabilities.ReadRestrictions">
+          <Record>
+            <PropertyValue Bool="false" Property="Readable" />
+          </Record>
+        </Annotation>
+        <Annotation Term="SAP__capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Bool="false" Property="Insertable" />
+          </Record>
+        </Annotation>
+        <Annotation Term="SAP__capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Bool="false" Property="Deletable" />
+          </Record>
+        </Annotation>
+        <Annotation Term="SAP__capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Bool="false" Property="Updatable" />
+            <PropertyValue Property="QueryOptions">
+              <Record>
+                <PropertyValue Bool="true" Property="SelectSupported" />
+              </Record>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="SAP__core.OptimisticConcurrency">
+          <Collection />
+        </Annotation>
+        <Annotation Term="SAP__capabilities.FilterRestrictions">
+          <Record>
+            <PropertyValue Property="FilterExpressionRestrictions">
+              <Collection>
+                <Record>
+                  <PropertyValue Property="Property" PropertyPath="Username" />
+                  <PropertyValue
+                    Property="AllowedExpressions"
+                    String="MultiValue"
+                  />
+                </Record>
+                <Record>
+                  <PropertyValue Property="Property" PropertyPath="Warehouse" />
+                  <PropertyValue
+                    Property="AllowedExpressions"
+                    String="MultiValue"
+                  />
+                </Record>
+                <Record>
+                  <PropertyValue Property="Property" PropertyPath="Plant" />
+                  <PropertyValue
+                    Property="AllowedExpressions"
+                    String="MultiValue"
+                  />
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="SAP__self.Container">
+        <Annotation Term="SAP__aggregation.ApplySupported">
+          <Record>
+            <PropertyValue Property="Transformations">
+              <Collection>
+                <String>aggregate</String>
+                <String>groupby</String>
+                <String>filter</String>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue
+              EnumMember="SAP__aggregation.RollupType/None"
+              Property="Rollup"
+            />
+          </Record>
+        </Annotation>
+        <Annotation
+          Bool="true"
+          Term="SAP__common.ApplyMultiUnitBehaviorForSortingAndFiltering"
+        />
+        <Annotation Term="SAP__capabilities.FilterFunctions">
+          <Collection>
+            <String>eq</String>
+            <String>ne</String>
+            <String>gt</String>
+            <String>ge</String>
+            <String>lt</String>
+            <String>le</String>
+            <String>and</String>
+            <String>or</String>
+            <String>contains</String>
+            <String>startswith</String>
+            <String>endswith</String>
+            <String>any</String>
+            <String>all</String>
+          </Collection>
+        </Annotation>
+        <Annotation Term="SAP__capabilities.SupportedFormats">
+          <Collection>
+            <String>application/json</String>
+            <String>application/pdf</String>
+          </Collection>
+        </Annotation>
+        <Annotation Term="SAP__PDF.Features">
+          <Record>
+            <PropertyValue
+              Property="DocumentDescriptionReference"
+              String="../../../../default/iwbep/common/0001/$metadata"
+            />
+            <PropertyValue
+              Property="DocumentDescriptionCollection"
+              String="MyDocumentDescriptions"
+            />
+            <PropertyValue Bool="true" Property="ArchiveFormat" />
+            <PropertyValue Bool="true" Property="Border" />
+            <PropertyValue Bool="true" Property="CoverPage" />
+            <PropertyValue Bool="true" Property="FitToPage" />
+            <PropertyValue Bool="true" Property="FontName" />
+            <PropertyValue Bool="true" Property="FontSize" />
+            <PropertyValue Bool="true" Property="Margin" />
+            <PropertyValue Bool="true" Property="Signature" />
+            <PropertyValue Int="20000" Property="ResultSizeDefault" />
+            <PropertyValue Int="20000" Property="ResultSizeMaximum" />
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="SAP__self.UserParamType/Rsrc">
+        <Annotation String="Ressource" Term="SAP__common.Label" />
+        <Annotation
+          String="Ressource (Transportmittel oder Benutzer)"
+          Term="SAP__common.QuickInfo"
+        />
+      </Annotations>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

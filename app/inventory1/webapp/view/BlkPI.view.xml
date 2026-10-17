@@ -1,0 +1,141 @@
+<mvc:View
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  xmlns:cssgrid="sap.ui.layout.cssgrid"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:inventory1="inventory1.control"
+  core:require="{
+      Alpha: 'inventory1/model/Alpha'
+  }"
+  controllerName="inventory1.controller.BlkPI"
+  displayBlock="true"
+>
+  <Page
+    busy="{/isLoading}"
+    busyIndicatorDelay="0"
+    navButtonPress=".navigateBack"
+    showHeader="false"
+  >
+    <core:Fragment
+      fragmentName="inventory1.view.fragment.ErrorStrip"
+      type="XML"
+    />
+    <content>
+      <ObjectHeader
+        backgroundDesign="Solid"
+        condensed="true"
+        id="idBinHeader2"
+        responsive="true"
+        title="{i18n>piBin} {/piHeader/lgpla}"
+      >
+        <attributes>
+          <ObjectAttribute
+            text="{ path:'docNumber', type:'Alpha'} - {itemNo}"
+            title="{i18n>piDocNo}"
+          />
+        </attributes>
+      </ObjectHeader>
+      <IconTabBar
+        class="sapUiResponsiveContentPadding"
+        expandable="false"
+        headerMode="Inline"
+        id="idBulkContentIconTabBar"
+        select="onSelectChanged"
+        upperCase="true"
+      >
+        <items>
+          <IconTabFilter design="Vertical" key="1" text="{i18n>input}">
+            <f:SimpleForm
+              class="editableForm"
+              columnsL="1"
+              columnsM="1"
+              editable="true"
+              id="idBulkForm"
+              layout="ResponsiveGridLayout"
+            >
+              <!-- Produkt -->
+              <Label
+                class="sapUiTinyTop"
+                labelFor="idMaterial2"
+                text="{i18n>material}"
+              />
+              <HBox alignItems="Stretch" width="100%">
+                <Input
+                  editable="false"
+                  id="idMaterial2"
+                  value="{
+                    path:'matnr', 
+                    type : 'Alpha',
+                    formatOptions: {length:18}
+                }"
+                />
+                <Text class="sapUiTinyMarginBegin" text="{maktx}" />
+              </HBox>
+              <!-- Charge  -->
+              <Label labelFor="idBatch2" text="{i18n>batch}" />
+              <HBox width="100%">
+                <Input editable="false" id="idBatch2" value="{charg}" />
+              </HBox>
+              <!-- Menge je HU -->
+              <Label labelFor="idQty" text="{i18n>qtyPerHu}" />
+              <FlexBox alignItems="Center" width="100%">
+                <Input
+                  editable="false"
+                  id="idQty3"
+                  value="{
+                      path:'stockQuantity',
+                      type : 'sap.ui.model.type.Float', 
+                      constraints : { minimum : 0, maximum : 10000000 },
+                      formatOptions: { emptyString: 0 }
+                  }"
+                />
+                <Text
+                  class="sapUiTinyMarginBegin"
+                  id="idUnit3"
+                  text="{enteredUnit}"
+                />
+              </FlexBox>
+              <!-- Anzahl HU -->
+              <Label
+                labelFor="idCountOfHu"
+                required="true"
+                text="{i18n>countOfHu}"
+              />
+              <inventory1:CustomInput
+                id="idCountOfHu"
+                submit=".onCountOfHuSubmit"
+                value="{
+                      path:'/countOfHu',
+                      type : 'sap.ui.model.type.Integer', 
+                      constraints : { minimum : 0, maximum : 10000000 },
+                      formatOptions: { emptyString: 0 }
+                  }"
+                width="5em"
+              />
+            </f:SimpleForm>
+          </IconTabFilter>
+        </items>
+      </IconTabBar>
+    </content>
+    <footer>
+      <Toolbar>
+        <Button
+          icon="sap-icon://alert"
+          press=".onMessagesButtonPress"
+          type="Emphasized"
+          visible="{= ${/error/length} > 0}"
+        />
+        <ToolbarSpacer />
+        <Button
+          icon="sap-icon://save"
+          id="idSave3"
+          press=".onSave"
+          text="{i18n>save}"
+          type="Accept"
+        />
+        <!--<Button text="LOCK" press="onLock"/>-->
+      </Toolbar>
+    </footer>
+  </Page>
+</mvc:View>

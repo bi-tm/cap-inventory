@@ -1,0 +1,70 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  xmlns:cssgrid="sap.ui.layout.cssgrid"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:inventory1="inventory1.control"
+  core:require="{
+      Alpha: 'inventory1/model/Alpha',
+      BooleNot: 'inventory1/model/BooleNot'
+  }"
+>
+  <List id="idTree" itemPress=".onHuSelected" items="{/piItems}">
+    <items>
+      <CustomListItem
+        class="sapUiSmallMarginBottom"
+        highlight="{= ${enteredQuantity} || ${huDeleted} ? 'Success' :  'Error' }"
+        type="Active"
+      >
+        <cssgrid:CSSGrid
+          class="sapUiTinyMargin"
+          gridColumnGap="1em"
+          gridTemplateColumns="3fr 8fr"
+        >
+          <Label text="{i18n>topHu}" visible="{= ${huTop} !== ${huident} }" />
+          <Text
+            text="{
+            path:'huTop', 
+            type : 'Alpha',
+            formatOptions: {length:20}
+            }"
+            visible="{= ${huTop} !== ${huident} }"
+          />
+          <Label text="{i18n>hu}" />
+          <HBox alignContent="Center">
+            <Title
+              text="{
+              path:'huident', 
+              type : 'Alpha',
+              formatOptions: {length:20}
+              }"
+            />
+            <Title
+              class="sapUiTinyMarginBegin"
+              level="H4"
+              text="{= ${huDeleted} ? ${i18n>missing} : '' }"
+            />
+          </HBox>
+          <Label id="idMaterialLabel" text="{i18n>material}" />
+          <Text
+            text="{
+                    path:'matnr', 
+                    type : 'Alpha',
+                    formatOptions: {length:18}
+                } {maktx}"
+          />
+          <Label id="idBatchLabel" text="{i18n>batch}" />
+          <Text text="{charg}" />
+          <Label id="idQty2Label" text="{i18n>qty}" />
+          <Text
+            text="{
+                path:'enteredQuantity',
+                type : 'sap.ui.model.type.Float'
+              } {enteredUnit}"
+          />
+        </cssgrid:CSSGrid>
+      </CustomListItem>
+    </items>
+  </List>
+</core:FragmentDefinition>

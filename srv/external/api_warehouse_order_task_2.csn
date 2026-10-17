@@ -1,0 +1,2185 @@
+{
+    "meta": {
+        "creator": "cds-dk 10.1.2"
+    },
+    "$version": "2.0",
+    "definitions": {
+        "api_warehouse_order_task_2.D_WhseOrderMergeChildP": {
+            "kind": "type",
+            "@cds.external": true,
+            "elements": {
+                "WarehouseOrder": {
+                    "type": "cds.String",
+                    "length": 10,
+                    "notNull": true,
+                    "@Common.IsDigitSequence": true,
+                    "@Common.Label": "Lagerauftrag",
+                    "@Common.Heading": "LagAuftrag",
+                    "@Common.QuickInfo": "Lagerauftragsnummer"
+                }
+            }
+        },
+        "api_warehouse_order_task_2.D_WhseOrderSplitChildP": {
+            "kind": "type",
+            "@cds.external": true,
+            "elements": {
+                "WarehouseTask": {
+                    "type": "cds.String",
+                    "length": 12,
+                    "notNull": true,
+                    "@Common.IsDigitSequence": true,
+                    "@Common.Label": "Lageraufgabe",
+                    "@Common.Heading": "LagAufgabe",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FTANUM_NOCONV"
+                }
+            }
+        },
+        "api_warehouse_order_task_2.SAP__Message": {
+            "kind": "type",
+            "@cds.external": true,
+            "elements": {
+                "code": {
+                    "type": "cds.String",
+                    "notNull": true
+                },
+                "message": {
+                    "type": "cds.String",
+                    "notNull": true
+                },
+                "target": {
+                    "type": "cds.String"
+                },
+                "additionalTargets": {
+                    "items": {
+                        "type": "cds.String",
+                        "notNull": true
+                    }
+                },
+                "transition": {
+                    "type": "cds.Boolean",
+                    "notNull": true
+                },
+                "numericSeverity": {
+                    "type": "cds.Integer",
+                    "@odata.Type": "Edm.Byte",
+                    "notNull": true
+                },
+                "longtextUrl": {
+                    "type": "cds.String"
+                }
+            }
+        },
+        "api_warehouse_order_task_2": {
+            "kind": "service",
+            "@cds.external": true,
+            "@CodeList.UnitsOfMeasure.Url": "../../../../default/iwbep/common/0001/$metadata",
+            "@CodeList.UnitsOfMeasure.CollectionPath": "UnitsOfMeasure",
+            "@Common.ApplyMultiUnitBehaviorForSortingAndFiltering": true,
+            "@Capabilities.FilterFunctions": [
+                "eq",
+                "ne",
+                "gt",
+                "ge",
+                "lt",
+                "le",
+                "and",
+                "or",
+                "contains",
+                "startswith",
+                "endswith",
+                "any",
+                "all"
+            ],
+            "@SAP__support.TechnicalInfoLinks.Url": "../../../../default/iwbep/common/0001/$metadata",
+            "@SAP__support.TechnicalInfoLinks.FunctionImport": "GetTechnicalInfoLinks",
+            "@Capabilities.SupportedFormats": [
+                "application/json",
+                "application/pdf"
+            ],
+            "@PDF.Features.DocumentDescriptionReference": "../../../../default/iwbep/common/0001/$metadata",
+            "@PDF.Features.DocumentDescriptionCollection": "MyDocumentDescriptions",
+            "@PDF.Features.ArchiveFormat": true,
+            "@PDF.Features.Border": true,
+            "@PDF.Features.CoverPage": true,
+            "@PDF.Features.FitToPage": true,
+            "@PDF.Features.FontName": true,
+            "@PDF.Features.FontSize": true,
+            "@PDF.Features.HeaderFooter": true,
+            "@PDF.Features.IANATimezoneFormat": true,
+            "@PDF.Features.Margin": true,
+            "@PDF.Features.Padding": true,
+            "@PDF.Features.ResultSizeDefault": 20000,
+            "@PDF.Features.ResultSizeMaximum": 20000,
+            "@PDF.Features.Signature": true,
+            "@PDF.Features.TextDirectionLayout": true,
+            "@PDF.Features.Treeview": true,
+            "@PDF.Features.UploadToFileShare": true,
+            "@Capabilities.BatchSupport.SupportedFormats": [
+                "application/json",
+                "multipart/mixed"
+            ],
+            "@Capabilities.KeyAsSegmentSupported": true,
+            "@Capabilities.AsynchronousRequestsSupported": true
+        },
+        "api_warehouse_order_task_2.WarehouseOrder": {
+            "kind": "entity",
+            "@cds.external": true,
+            "@cds.persistence.skip": true,
+            "elements": {
+                "EWMWarehouse": {
+                    "key": true,
+                    "type": "cds.String",
+                    "length": 4,
+                    "notNull": true,
+                    "@Common.SAPObjectNodeTypeReference": "Warehouse",
+                    "@Core.Computed": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Lagernummer",
+                    "@Common.Heading": "LNr",
+                    "@Common.QuickInfo": "Lagernummer/Lagerkomplex",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLGNUM"
+                },
+                "WarehouseOrder": {
+                    "key": true,
+                    "type": "cds.String",
+                    "length": 10,
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.IsDigitSequence": true,
+                    "@Common.Label": "Lagerauftrag",
+                    "@Common.Heading": "LagAuftrag",
+                    "@Common.QuickInfo": "Lagerauftragsnummer"
+                },
+                "WarehouseOrderStatus": {
+                    "type": "cds.String",
+                    "length": 1,
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Lagerauftragsstatus",
+                    "@Common.QuickInfo": "Status des Lagerauftrags"
+                },
+                "WhseOrderCreationDateTime": {
+                    "type": "cds.DateTime",
+                    "@odata.Precision": 0,
+                    "@odata.Type": "Edm.DateTimeOffset",
+                    "@Core.Computed": true,
+                    "@Common.Label": "Erstellungsuhrzeit"
+                },
+                "WarehouseOrderStartDateTime": {
+                    "type": "cds.DateTime",
+                    "@odata.Precision": 0,
+                    "@odata.Type": "Edm.DateTimeOffset",
+                    "@Core.Computed": true,
+                    "@Common.Label": "Startzeitpunkt"
+                },
+                "WhseOrderConfirmedDateTime": {
+                    "type": "cds.DateTime",
+                    "@odata.Precision": 0,
+                    "@odata.Type": "Edm.DateTimeOffset",
+                    "@Core.Computed": true,
+                    "@Common.Label": "Quittierungszeitp.",
+                    "@Common.QuickInfo": "Quittierungsszeitpunkt"
+                },
+                "WhseOrderLastChgUTCDateTime": {
+                    "type": "cds.DateTime",
+                    "@odata.Precision": 0,
+                    "@odata.Type": "Edm.DateTimeOffset",
+                    "@Core.Computed": true,
+                    "@Common.Label": "Kurzform Zeitstempel",
+                    "@Common.Heading": "Kurzform des Zeitstempels",
+                    "@Common.QuickInfo": "UTC-Zeitstempel in Kurzform (JJJJMMTThhmmss)",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=TZNTSTMPS"
+                },
+                "WhseOrderLatestStartDateTime": {
+                    "type": "cds.DateTime",
+                    "@odata.Precision": 0,
+                    "@odata.Type": "Edm.DateTimeOffset",
+                    "@Core.Computed": true,
+                    "@Common.Label": "Spät. Starttermin",
+                    "@Common.Heading": "SST",
+                    "@Common.QuickInfo": "Spätester Starttermin (SST)"
+                },
+                "WarehouseOrderCreationRule": {
+                    "type": "cds.String",
+                    "length": 4,
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "LA-Erstellungsregel",
+                    "@Common.Heading": "Lagerauftragserstellungsregel",
+                    "@Common.QuickInfo": "Lagerauftragserstellungsregel",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_WCR"
+                },
+                "WhseOrderCreationRuleCategory": {
+                    "type": "cds.String",
+                    "length": 1,
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Typ LA-ErstellRegel",
+                    "@Common.QuickInfo": "Typ einer Lagerauftragerstellungsregel",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_WCRTYPE"
+                },
+                "ActivityArea": {
+                    "type": "cds.String",
+                    "length": 4,
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Aktivitätsbereich",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_AAREA"
+                },
+                "Queue": {
+                    "type": "cds.String",
+                    "length": 10,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Queue",
+                    "@Common.Heading": "Q",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_QUEUE"
+                },
+                "Processor": {
+                    "type": "cds.String",
+                    "length": 12,
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Ausführender"
+                },
+                "ExecutingResource": {
+                    "type": "cds.String",
+                    "length": 18,
+                    "notNull": true,
+                    "@Common.SAPObjectNodeTypeReference": "WarehouseResource",
+                    "@Core.Computed": true,
+                    "@Common.Label": "Ressource",
+                    "@Common.QuickInfo": "Ressource (Transportmittel oder Benutzer)"
+                },
+                "EWMWave": {
+                    "type": "cds.String",
+                    "length": 10,
+                    "notNull": true,
+                    "@Common.IsDigitSequence": true,
+                    "@Common.Label": "Welle"
+                },
+                "WhseProcessTypeDocumentHdr": {
+                    "type": "cds.String",
+                    "length": 4,
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Kopf-LagProzArt",
+                    "@Common.Heading": "Kopf-LPA",
+                    "@Common.QuickInfo": "Belegkopf-Lagerprozessart",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_HEAD_PROCTY"
+                },
+                "CreatedByUser": {
+                    "type": "cds.String",
+                    "length": 12,
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Angelegt von",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_CREATOR"
+                },
+                "LastChangedByUser": {
+                    "type": "cds.String",
+                    "length": 12,
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Änderer",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_EDITOR"
+                },
+                "ConfirmedByUser": {
+                    "type": "cds.String",
+                    "length": 12,
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Quittiert von",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_CONFIRMEDBY"
+                },
+                "WhseOrderForSplitWhseOrder": {
+                    "type": "cds.String",
+                    "length": 10,
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.IsDigitSequence": true,
+                    "@Common.Label": "Splitt-LA",
+                    "@Common.QuickInfo": "Lagerauftragsnummer des LAs von dem gesplittet wurde"
+                },
+                "WarehouseOrderIsSplit": {
+                    "type": "cds.Boolean",
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.Label": "Gesplittet",
+                    "@Common.QuickInfo": "Lagerauftrag wurde gesplittet"
+                },
+                "WarehouseOrderPlannedDuration": {
+                    "type": "cds.Decimal",
+                    "precision": 15,
+                    "scale": 3,
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Measures.Unit": {
+                        "=": "WhseOrderPlanDurationTimeUnit"
+                    },
+                    "@Common.Label": "Gepl Ausführungszeit",
+                    "@Common.QuickInfo": "Geplante Ausführungszeit des Lagerauftrags"
+                },
+                "WhseOrderPlanDurationTimeUnit": {
+                    "type": "cds.String",
+                    "length": 3,
+                    "notNull": true,
+                    "@Common.IsUnit": true,
+                    "@Core.Computed": true,
+                    "@Common.Label": "Zeiteinheit",
+                    "@Common.Heading": "Zeit",
+                    "@Common.QuickInfo": "Lagerauftrag: Zeiteinheit"
+                },
+                "SAP__Messages": {
+                    "items": {
+                        "type": "api_warehouse_order_task_2.SAP__Message",
+                        "notNull": true
+                    }
+                },
+                "_WarehouseOrderPickHndlgUnit": {
+                    "type": "cds.Composition",
+                    "target": "api_warehouse_order_task_2.WarehouseOrderPickHndlgUnit",
+                    "cardinality": {
+                        "max": "*"
+                    },
+                    "on": [
+                        {
+                            "ref": [
+                                "_WarehouseOrderPickHndlgUnit",
+                                "_WarehouseOrder"
+                            ]
+                        },
+                        "=",
+                        {
+                            "ref": [
+                                "$self"
+                            ]
+                        }
+                    ],
+                    "@Common.Composition": true
+                },
+                "_WarehouseTask": {
+                    "type": "cds.Composition",
+                    "target": "api_warehouse_order_task_2.WarehouseTask",
+                    "cardinality": {
+                        "max": "*"
+                    },
+                    "on": [
+                        {
+                            "ref": [
+                                "_WarehouseTask",
+                                "_WarehouseOrder"
+                            ]
+                        },
+                        "=",
+                        {
+                            "ref": [
+                                "$self"
+                            ]
+                        }
+                    ],
+                    "@Common.Composition": true
+                }
+            },
+            "actions": {
+                "AssignWarehouseOrder": {
+                    "kind": "action",
+                    "params": {
+                        "EWMResource": {
+                            "type": "cds.String",
+                            "length": 18,
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "@Common.Label": "Ressource",
+                            "@Common.QuickInfo": "Ressource (Transportmittel oder Benutzer)"
+                        }
+                    }
+                },
+                "MergeWarehouseOrder": {
+                    "kind": "action",
+                    "params": {
+                        "EWMWarehouse": {
+                            "type": "cds.String",
+                            "length": 4,
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "@Common.Label": "Lagernummer",
+                            "@Common.Heading": "LNr",
+                            "@Common.QuickInfo": "Lagernummer/Lagerkomplex",
+                            "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLGNUM"
+                        },
+                        "WarehouseOrderCreationRule": {
+                            "type": "cds.String",
+                            "length": 4,
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "@Common.Label": "LA-Erstellungsregel",
+                            "@Common.Heading": "Lagerauftragserstellungsregel",
+                            "@Common.QuickInfo": "Lagerauftragserstellungsregel",
+                            "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_WCR"
+                        },
+                        "_WarehouseOrderMergeChild": {
+                            "items": {
+                                "type": "api_warehouse_order_task_2.D_WhseOrderMergeChildP",
+                                "notNull": true
+                            }
+                        }
+                    },
+                    "returns": {
+                        "items": {
+                            "type": "api_warehouse_order_task_2.WarehouseOrder",
+                            "notNull": true
+                        }
+                    }
+                },
+                "SplitWarehouseOrder": {
+                    "kind": "action",
+                    "params": {
+                        "WarehouseOrderCreationRule": {
+                            "type": "cds.String",
+                            "length": 4,
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "@Common.Label": "LA-Erstellungsregel",
+                            "@Common.Heading": "Lagerauftragserstellungsregel",
+                            "@Common.QuickInfo": "Lagerauftragserstellungsregel",
+                            "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_WCR"
+                        },
+                        "_WarehouseOrderSplitChild": {
+                            "items": {
+                                "type": "api_warehouse_order_task_2.D_WhseOrderSplitChildP",
+                                "notNull": true
+                            }
+                        }
+                    },
+                    "returns": {
+                        "items": {
+                            "type": "api_warehouse_order_task_2.WarehouseOrder",
+                            "notNull": true
+                        }
+                    }
+                },
+                "SetWarehouseOrderToInProcess": {
+                    "kind": "action",
+                    "params": {}
+                },
+                "UnlockWarehouseOrder": {
+                    "kind": "action",
+                    "params": {}
+                },
+                "UnassignWarehouseOrder": {
+                    "kind": "action",
+                    "params": {}
+                },
+                "LockWarehouseOrder": {
+                    "kind": "action",
+                    "params": {}
+                }
+            },
+            "@Common.Label": "Lagerauftrag",
+            "@Common.Messages": {
+                "=": "SAP__Messages"
+            },
+            "@Capabilities.NavigationRestrictions.RestrictedProperties": [
+                {
+                    "NavigationProperty": {
+                        "=": "_WarehouseOrderPickHndlgUnit"
+                    },
+                    "InsertRestrictions": {
+                        "Insertable": false
+                    }
+                },
+                {
+                    "NavigationProperty": {
+                        "=": "_WarehouseTask"
+                    },
+                    "InsertRestrictions": {
+                        "Insertable": false
+                    }
+                }
+            ],
+            "@Capabilities.SearchRestrictions.Searchable": false,
+            "@Capabilities.UpdateRestrictions.DeltaUpdateSupported": true,
+            "@Capabilities.UpdateRestrictions.NonUpdatableNavigationProperties": [
+                "_WarehouseOrderPickHndlgUnit",
+                "_WarehouseTask"
+            ],
+            "@Capabilities.UpdateRestrictions.QueryOptions.SelectSupported": true,
+            "@Capabilities.DeepUpdateSupport.ContentIDSupported": true,
+            "@Capabilities.InsertRestrictions.Insertable": false,
+            "@Capabilities.DeleteRestrictions.Deletable": false,
+            "@Core.OptimisticConcurrency": [
+                "WhseOrderLastChgUTCDateTime"
+            ],
+            "@Capabilities.FilterRestrictions.FilterExpressionRestrictions": [
+                {
+                    "Property": {
+                        "=": "WarehouseOrderPlannedDuration"
+                    },
+                    "AllowedExpressions": "MultiValue"
+                }
+            ]
+        },
+        "api_warehouse_order_task_2.WarehouseOrderPickHndlgUnit": {
+            "kind": "entity",
+            "@cds.external": true,
+            "@cds.persistence.skip": true,
+            "elements": {
+                "EWMWarehouse": {
+                    "key": true,
+                    "type": "cds.String",
+                    "length": 4,
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Lagernummer",
+                    "@Common.Heading": "LNr",
+                    "@Common.QuickInfo": "Lagernummer/Lagerkomplex",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLGNUM"
+                },
+                "WarehouseOrder": {
+                    "key": true,
+                    "type": "cds.String",
+                    "length": 10,
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.IsDigitSequence": true,
+                    "@Common.Label": "Lagerauftrag",
+                    "@Common.Heading": "LagAuftrag",
+                    "@Common.QuickInfo": "Lagerauftragsnummer"
+                },
+                "HandlingUnitExternalID": {
+                    "key": true,
+                    "type": "cds.String",
+                    "length": 20,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Handling Unit"
+                },
+                "PackagingMaterial": {
+                    "type": "cds.String",
+                    "length": 18,
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Produkt",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=PRODUCTNUMBER"
+                },
+                "EWMWhseOrderNmbrOfHndlgUnits": {
+                    "type": "cds.String",
+                    "length": 3,
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.IsDigitSequence": true,
+                    "@Common.Label": "HU-Kennung",
+                    "@Common.QuickInfo": "Kennung einer Handling Unit in einem Lagerauftrag",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_HUKNG"
+                },
+                "SAP__Messages": {
+                    "items": {
+                        "type": "api_warehouse_order_task_2.SAP__Message",
+                        "notNull": true
+                    }
+                },
+                "_WarehouseOrder": {
+                    "type": "cds.Association",
+                    "target": "api_warehouse_order_task_2.WarehouseOrder",
+                    "cardinality": {
+                        "max": 1
+                    },
+                    "on": [
+                        {
+                            "ref": [
+                                "_WarehouseOrder",
+                                "WarehouseOrder"
+                            ]
+                        },
+                        "=",
+                        {
+                            "ref": [
+                                "WarehouseOrder"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "@Common.Label": "Lagerauftrag Kommissionier-Handling-Unit",
+            "@Common.Messages": {
+                "=": "SAP__Messages"
+            },
+            "@Capabilities.NavigationRestrictions.RestrictedProperties": [
+                {
+                    "NavigationProperty": {
+                        "=": "_WarehouseOrder"
+                    },
+                    "DeepUpdateSupport": {
+                        "Supported": false
+                    }
+                }
+            ],
+            "@Capabilities.SearchRestrictions.Searchable": false,
+            "@Capabilities.InsertRestrictions.RequiredProperties": [
+                "HandlingUnitExternalID"
+            ],
+            "@Capabilities.UpdateRestrictions.Updatable": false,
+            "@Capabilities.UpdateRestrictions.NonUpdatableNavigationProperties": [
+                "_WarehouseOrder"
+            ],
+            "@Capabilities.UpdateRestrictions.QueryOptions.SelectSupported": true,
+            "@Core.OptimisticConcurrency": [
+                "_WarehouseOrder/WhseOrderLastChgUTCDateTime"
+            ]
+        },
+        "api_warehouse_order_task_2.WarehouseTask": {
+            "kind": "entity",
+            "@cds.external": true,
+            "@cds.persistence.skip": true,
+            "elements": {
+                "EWMWarehouse": {
+                    "key": true,
+                    "type": "cds.String",
+                    "length": 4,
+                    "notNull": true,
+                    "@Common.SAPObjectNodeTypeReference": "Warehouse",
+                    "@Core.ComputedDefaultValue": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Lagernummer",
+                    "@Common.Heading": "LNr",
+                    "@Common.QuickInfo": "Lagernummer/Lagerkomplex",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLGNUM"
+                },
+                "WarehouseTask": {
+                    "key": true,
+                    "type": "cds.String",
+                    "length": 12,
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.IsDigitSequence": true,
+                    "@Common.Label": "Lageraufgabe",
+                    "@Common.Heading": "LagAufgabe",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FTANUM_NOCONV"
+                },
+                "WarehouseTaskItem": {
+                    "key": true,
+                    "type": "cds.String",
+                    "length": 4,
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.IsDigitSequence": true,
+                    "@Common.Label": "LB-Pos.",
+                    "@Common.Heading": "Pos.",
+                    "@Common.QuickInfo": "Lageraufgabenposition",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FTAPOS_NOCONV"
+                },
+                "WarehouseOrder": {
+                    "type": "cds.String",
+                    "length": 10,
+                    "notNull": true,
+                    "@Common.SAPObjectNodeTypeReference": "WarehouseOrder",
+                    "@Core.Immutable": true,
+                    "@Common.IsDigitSequence": true,
+                    "@Common.Label": "Lagerauftrag",
+                    "@Common.Heading": "LagAuftrag",
+                    "@Common.QuickInfo": "Lagerauftragsnummer"
+                },
+                "WhseTaskCrtnUTCDateTime": {
+                    "type": "cds.DateTime",
+                    "@odata.Precision": 0,
+                    "@odata.Type": "Edm.DateTimeOffset",
+                    "@Common.Label": "Erstellungsuhrzeit"
+                },
+                "WhseTaskLastChgUTCDateTime": {
+                    "type": "cds.DateTime",
+                    "@odata.Precision": 0,
+                    "@odata.Type": "Edm.DateTimeOffset",
+                    "@Common.Label": "Kurzform Zeitstempel",
+                    "@Common.Heading": "Kurzform des Zeitstempels",
+                    "@Common.QuickInfo": "UTC-Zeitstempel in Kurzform (JJJJMMTThhmmss)",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=TZNTSTMPS"
+                },
+                "WhseTaskConfUTCDateTime": {
+                    "type": "cds.DateTime",
+                    "@odata.Precision": 0,
+                    "@odata.Type": "Edm.DateTimeOffset",
+                    "@Common.Label": "Zeitstempel",
+                    "@Common.QuickInfo": "UTC-Zeitstempel in Kurzform (JJJJMMTThhmmss)",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=TIMESTAMP"
+                },
+                "ConfirmedByUser": {
+                    "type": "cds.String",
+                    "length": 12,
+                    "notNull": true
+                },
+                "WhseTaskPlannedClosingDateTime": {
+                    "type": "cds.DateTime",
+                    "@odata.Precision": 0,
+                    "@odata.Type": "Edm.DateTimeOffset",
+                    "@Common.Label": "Gepl. Abschluss",
+                    "@Common.QuickInfo": "Geplanter Abschlusszeitpunkt"
+                },
+                "WhseTaskGoodsReceiptDateTime": {
+                    "type": "cds.DateTime",
+                    "@odata.Precision": 0,
+                    "@odata.Type": "Edm.DateTimeOffset",
+                    "@Common.Label": "WE-Datum",
+                    "@Common.QuickInfo": "Datum und Uhrzeit des Wareneingangs",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLVS_WDATU_NOCONV"
+                },
+                "WarehouseTaskStatus": {
+                    "type": "cds.String",
+                    "length": 1,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "LB-Status",
+                    "@Common.QuickInfo": "Lageraufgabenstatus"
+                },
+                "WarehouseProcessType": {
+                    "type": "cds.String",
+                    "length": 4,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Lagerprozessart",
+                    "@Common.Heading": "LagProzArt",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_PROCTY"
+                },
+                "WarehouseProcessCategory": {
+                    "type": "cds.String",
+                    "length": 1,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Lagerprozesstyp",
+                    "@Common.Heading": "T",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLVS_TRART"
+                },
+                "IsHandlingUnitWarehouseTask": {
+                    "type": "cds.Boolean",
+                    "notNull": true,
+                    "@Common.Label": "HU-Lageraufgabe",
+                    "@Common.Heading": "HU-LB",
+                    "@Common.QuickInfo": "Handling-Unit-Lageraufgabe"
+                },
+                "EWMHandlingUnitType": {
+                    "type": "cds.String",
+                    "length": 4,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Handling-Unit-Typ",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_HUTYP"
+                },
+                "HandlingUnitTypeGroup": {
+                    "type": "cds.String",
+                    "length": 4,
+                    "notNull": true,
+                    "@Common.Label": "HU-Typ-Gruppe",
+                    "@Common.Heading": "HU-Gr",
+                    "@Common.QuickInfo": "Handling-Unit-Typ-Gruppe",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_HUTYPGRP"
+                },
+                "HomogeneousFullPalletPick": {
+                    "type": "cds.String",
+                    "length": 1,
+                    "notNull": true,
+                    "@Common.Label": "Entnahme ganze HU",
+                    "@Common.Heading": "Ganze HU",
+                    "@Common.QuickInfo": "Entnahme einer ganzen homogenen Handling Unit",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLTAP_HOMVE"
+                },
+                "EWMPutAwayPhysInvtryPlnSts": {
+                    "type": "cds.String",
+                    "length": 1,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "EinlgInv. gepl.",
+                    "@Common.Heading": "Inv. gepl.",
+                    "@Common.QuickInfo": "Einlagerinventur geplant"
+                },
+                "EWMWhseTskLowStkChkPlnSts": {
+                    "type": "cds.String",
+                    "length": 1,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "NdBestKtr. gepl",
+                    "@Common.Heading": "NBK gepl",
+                    "@Common.QuickInfo": "Niederbestandskontrolle geplant"
+                },
+                "EWMPutAwayPhysInvtryExecSts": {
+                    "type": "cds.String",
+                    "length": 1,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "EinlInv. ausgef",
+                    "@Common.Heading": "Inv. ausgf",
+                    "@Common.QuickInfo": "Einlagerinventur durchgeführt"
+                },
+                "EWMWhseTskLowStkChkExecSts": {
+                    "type": "cds.String",
+                    "length": 1,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "NBstK durchgef.",
+                    "@Common.Heading": "NiBeKont",
+                    "@Common.QuickInfo": "Niederbestandskontrolle durchgeführt"
+                },
+                "Product": {
+                    "type": "cds.String",
+                    "length": 18,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Produkt",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=PRODUCTNUMBER"
+                },
+                "Batch": {
+                    "type": "cds.String",
+                    "length": 10,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Charge"
+                },
+                "BatchChangeIsNotAllowed": {
+                    "type": "cds.Boolean",
+                    "notNull": true,
+                    "@Common.Label": "Charge ändern",
+                    "@Common.QuickInfo": "Ändern der Charge ist nicht erlaubt"
+                },
+                "CountryOfOrigin": {
+                    "type": "cds.String",
+                    "length": 3,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Ursprungsl./-region",
+                    "@Common.Heading": "Herkunft",
+                    "@Common.QuickInfo": "Ursprungsland/-region"
+                },
+                "ShelfLifeExpirationDate": {
+                    "type": "cds.Date",
+                    "@Common.Label": "Verfallsdatum",
+                    "@Common.Heading": "Verf./MHD",
+                    "@Common.QuickInfo": "Verfallsdatum oder Mindesthaltbarkeitsdatum"
+                },
+                "EWMStockType": {
+                    "type": "cds.String",
+                    "length": 2,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Bestandsart",
+                    "@Common.Heading": "Art"
+                },
+                "EWMStockUsage": {
+                    "type": "cds.String",
+                    "length": 1,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Verwendung",
+                    "@Common.Heading": "Vwd",
+                    "@Common.QuickInfo": "Bestandsverwendung"
+                },
+                "EWMStockOwner": {
+                    "type": "cds.String",
+                    "length": 10,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Characterfeld der Länge 10"
+                },
+                "EntitledToDisposeParty": {
+                    "type": "cds.String",
+                    "length": 10,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "VerfügBer.",
+                    "@Common.QuickInfo": "Verfügungsberechtigter",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_ENTITLED"
+                },
+                "WBSElementInternalID": {
+                    "type": "cds.String",
+                    "length": 8,
+                    "notNull": true,
+                    "@Common.IsDigitSequence": true,
+                    "@Common.Label": "Interne PSP-ID",
+                    "@Common.Heading": "PSP-Elm.",
+                    "@Common.QuickInfo": "PSP-Element",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=PS_S4_PSPNR"
+                },
+                "WBSElementExternalID": {
+                    "type": "cds.String",
+                    "length": 24,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "PSP-Element",
+                    "@Common.QuickInfo": "Projektstrukturplan-Element (PSP-Element) bearbeitet",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=PS_POSID_EDIT"
+                },
+                "SpecialStockIdfgSalesOrder": {
+                    "type": "cds.String",
+                    "length": 10,
+                    "notNull": true
+                },
+                "SpecialStockIdfgSalesOrderItem": {
+                    "type": "cds.String",
+                    "length": 6,
+                    "notNull": true,
+                    "@Common.IsDigitSequence": true
+                },
+                "ExecutingResource": {
+                    "type": "cds.String",
+                    "length": 18,
+                    "notNull": true,
+                    "@Common.SAPObjectNodeTypeReference": "WarehouseResource",
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Ressource",
+                    "@Common.Heading": "Ausführende Ressource",
+                    "@Common.QuickInfo": "Ausführende Ressource (Transportmittel oder Benutzer)"
+                },
+                "WarehouseMovementsReason": {
+                    "type": "cds.String",
+                    "length": 4,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Grund der Bewegung",
+                    "@Common.Heading": "Grund",
+                    "@Common.QuickInfo": "Grund für Bewegungen im Lager",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_REASON"
+                },
+                "ProductionOrder": {
+                    "type": "cds.String",
+                    "length": 12,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Produktionsauftrag"
+                },
+                "EWMProductionSupplyArea": {
+                    "type": "cds.String",
+                    "length": 15,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "ProdVersorgBereich",
+                    "@Common.Heading": "Produktionsversorgungsbereich",
+                    "@Common.QuickInfo": "Produktionsversorgungsbereich",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_PSA"
+                },
+                "EWMDocumentCategory": {
+                    "type": "cds.String",
+                    "length": 3,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Belegtyp",
+                    "@Common.Heading": "Typ",
+                    "@Common.QuickInfo": "Belegtyp für Belegreferenz und belegbezogenen Bestand"
+                },
+                "EWMReferenceDocumentCategory": {
+                    "type": "cds.String",
+                    "length": 3,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Belegtyp",
+                    "@Common.Heading": "Typ",
+                    "@Common.QuickInfo": "Belegtyp für Belegreferenz und belegbezogenen Bestand"
+                },
+                "EWMWave": {
+                    "type": "cds.String",
+                    "length": 10,
+                    "notNull": true,
+                    "@Common.IsDigitSequence": true,
+                    "@Common.Label": "Welle"
+                },
+                "EWMWaveItem": {
+                    "type": "cds.String",
+                    "length": 6,
+                    "notNull": true,
+                    "@Common.IsDigitSequence": true,
+                    "@Common.Label": "Wellenposition"
+                },
+                "EWMDelivery": {
+                    "type": "cds.String",
+                    "length": 35,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Belegnummer"
+                },
+                "EWMDeliveryItem": {
+                    "type": "cds.String",
+                    "length": 10,
+                    "notNull": true,
+                    "@Common.IsDigitSequence": true,
+                    "@Common.Label": "Positionsnummer"
+                },
+                "EWMProductionMaterialRequest": {
+                    "type": "cds.String",
+                    "length": 35,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Belegnummer"
+                },
+                "EWMProductionMaterialReqItem": {
+                    "type": "cds.String",
+                    "length": 10,
+                    "notNull": true,
+                    "@Common.IsDigitSequence": true,
+                    "@Common.Label": "Positionsnummer"
+                },
+                "PurchasingDocument": {
+                    "type": "cds.String",
+                    "length": 10,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Bestellung",
+                    "@Common.QuickInfo": "Bestellnummer"
+                },
+                "PurchasingDocumentItem": {
+                    "type": "cds.String",
+                    "length": 5,
+                    "notNull": true,
+                    "@Common.IsDigitSequence": true,
+                    "@Common.Label": "Bestellposition",
+                    "@Common.Heading": "Pos.",
+                    "@Common.QuickInfo": "Positionsnummer der Bestellung"
+                },
+                "SalesDocument": {
+                    "type": "cds.String",
+                    "length": 10,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Vertriebsbeleg",
+                    "@Common.Heading": "Beleg",
+                    "@Common.QuickInfo": "Vertriebsbelegnummer",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=VBELN"
+                },
+                "SalesDocumentItem": {
+                    "type": "cds.String",
+                    "length": 6,
+                    "notNull": true,
+                    "@Common.IsDigitSequence": true,
+                    "@Common.Label": "Verkaufsbelegpos.",
+                    "@Common.Heading": "VBPos.",
+                    "@Common.QuickInfo": "Verkaufsbelegposition",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=POSNR_VA"
+                },
+                "EWMStockReferenceDocCategory": {
+                    "type": "cds.String",
+                    "length": 3,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Belegtyp",
+                    "@Common.Heading": "Typ",
+                    "@Common.QuickInfo": "Belegtyp für Belegreferenz und belegbezogenen Bestand"
+                },
+                "EWMStockReferenceDocument": {
+                    "type": "cds.String",
+                    "length": 35,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Belegnummer"
+                },
+                "EWMStockReferenceDocumentItem": {
+                    "type": "cds.String",
+                    "length": 10,
+                    "notNull": true,
+                    "@Common.IsDigitSequence": true,
+                    "@Common.Label": "Positionsnummer"
+                },
+                "BaseUnit": {
+                    "type": "cds.String",
+                    "length": 3,
+                    "notNull": true,
+                    "@Common.IsUnit": true,
+                    "@Common.Label": "Basismengeneinheit",
+                    "@Common.Heading": "BME"
+                },
+                "EWMBaseUnitISOCode": {
+                    "type": "cds.String",
+                    "length": 3,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "ISO-Code",
+                    "@Common.Heading": "ISO",
+                    "@Common.QuickInfo": "ISO-Code Maßeinheit",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=ISOCD_UNIT"
+                },
+                "AlternativeUnit": {
+                    "type": "cds.String",
+                    "length": 3,
+                    "notNull": true,
+                    "@Common.IsUnit": true,
+                    "@Common.Label": "Alt.Mengeneinheit",
+                    "@Common.Heading": "AME",
+                    "@Common.QuickInfo": "Alternativmengeneinheit zur Lagermengeneinheit",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_AUNIT"
+                },
+                "EWMAlternativeUnitISOCode": {
+                    "type": "cds.String",
+                    "length": 3,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "ISO-Code",
+                    "@Common.Heading": "ISO",
+                    "@Common.QuickInfo": "ISO-Code Maßeinheit",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=ISOCD_UNIT"
+                },
+                "TargetQuantityInBaseUnit": {
+                    "type": "cds.Decimal",
+                    "precision": 31,
+                    "scale": 14,
+                    "notNull": true,
+                    "@Measures.Unit": {
+                        "=": "BaseUnit"
+                    },
+                    "@Common.Label": "Zielmenge BME",
+                    "@Common.QuickInfo": "Zielmenge in Basismengeneinheit",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLTAP_VSOLM"
+                },
+                "TargetQuantityInAltvUnit": {
+                    "type": "cds.Decimal",
+                    "precision": 31,
+                    "scale": 14,
+                    "notNull": true,
+                    "@Measures.Unit": {
+                        "=": "AlternativeUnit"
+                    },
+                    "@Common.Label": "Zielmenge AME",
+                    "@Common.QuickInfo": "Zielmenge in Alternativmengeneinheit",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLTAP_VSOLA"
+                },
+                "ActualQuantityInBaseUnit": {
+                    "type": "cds.Decimal",
+                    "precision": 31,
+                    "scale": 14,
+                    "notNull": true,
+                    "@Measures.Unit": {
+                        "=": "BaseUnit"
+                    }
+                },
+                "ActualQuantityInAltvUnit": {
+                    "type": "cds.Decimal",
+                    "precision": 31,
+                    "scale": 14,
+                    "notNull": true,
+                    "@Measures.Unit": {
+                        "=": "AlternativeUnit"
+                    }
+                },
+                "DifferenceQuantityInBaseUnit": {
+                    "type": "cds.Decimal",
+                    "precision": 31,
+                    "scale": 14,
+                    "notNull": true,
+                    "@Measures.Unit": {
+                        "=": "BaseUnit"
+                    }
+                },
+                "DifferenceQuantityInAltvUnit": {
+                    "type": "cds.Decimal",
+                    "precision": 31,
+                    "scale": 14,
+                    "notNull": true,
+                    "@Measures.Unit": {
+                        "=": "AlternativeUnit"
+                    }
+                },
+                "WhseTaskNetWeightUnitOfMeasure": {
+                    "type": "cds.String",
+                    "length": 3,
+                    "notNull": true,
+                    "@Common.IsUnit": true,
+                    "@Common.Label": "Gewichtseinheit",
+                    "@Common.Heading": "EH",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_WGT_UOM"
+                },
+                "WhseTaskNetWeight": {
+                    "type": "cds.Decimal",
+                    "precision": 15,
+                    "scale": 3,
+                    "notNull": true,
+                    "@Measures.Unit": {
+                        "=": "WhseTaskNetWeightUnitOfMeasure"
+                    },
+                    "@Common.Label": "Ladungsgewicht",
+                    "@Common.QuickInfo": "Ladungs- oder Nettogewicht"
+                },
+                "WhseTaskNetVolumeUnitOfMeasure": {
+                    "type": "cds.String",
+                    "length": 3,
+                    "notNull": true,
+                    "@Common.IsUnit": true,
+                    "@Common.Label": "Volumeneinheit",
+                    "@Common.Heading": "VEH",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_VOL_UOM"
+                },
+                "WhseTaskNetVolume": {
+                    "type": "cds.Decimal",
+                    "precision": 15,
+                    "scale": 3,
+                    "notNull": true,
+                    "@Measures.Unit": {
+                        "=": "WhseTaskNetVolumeUnitOfMeasure"
+                    },
+                    "@Common.Label": "Ladungsvolumen",
+                    "@Common.QuickInfo": "Ladungs- oder Nettovolumen"
+                },
+                "Kanban": {
+                    "type": "cds.String",
+                    "length": 10,
+                    "notNull": true
+                },
+                "SourceStorageType": {
+                    "type": "cds.String",
+                    "length": 4,
+                    "notNull": true,
+                    "@Common.SAPObjectNodeTypeReference": "WarehouseStorageType",
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Von-Lagertyp",
+                    "@Common.Heading": "Typ",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLTAP_VLTYP"
+                },
+                "SourceStorageSection": {
+                    "type": "cds.String",
+                    "length": 4,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Vonlagerbereich",
+                    "@Common.Heading": "Ber",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLTAP_VLBER"
+                },
+                "SourceStorageBin": {
+                    "type": "cds.String",
+                    "length": 18,
+                    "notNull": true,
+                    "@Common.SAPObjectNodeTypeReference": "WarehouseStorageBin",
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Von-Lagerplatz",
+                    "@Common.Heading": "Von-Platz",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLTAP_VLPLA"
+                },
+                "SourceResource": {
+                    "type": "cds.String",
+                    "length": 18,
+                    "notNull": true,
+                    "@Common.SAPObjectNodeTypeReference": "WarehouseResource",
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Von-Ressource",
+                    "@Common.QuickInfo": "Von-Ressource (Transportmittel oder Benutzer)"
+                },
+                "DestinationStorageType": {
+                    "type": "cds.String",
+                    "length": 4,
+                    "notNull": true,
+                    "@Common.SAPObjectNodeTypeReference": "WarehouseStorageType",
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Nachlagertyp",
+                    "@Common.Heading": "Typ"
+                },
+                "DestinationStorageSection": {
+                    "type": "cds.String",
+                    "length": 4,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Nachlagerbereich",
+                    "@Common.Heading": "Ber",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLTAP_NLBER"
+                },
+                "DestinationStorageBin": {
+                    "type": "cds.String",
+                    "length": 18,
+                    "notNull": true,
+                    "@Common.SAPObjectNodeTypeReference": "WarehouseStorageBin",
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Nach-Lagerplatz",
+                    "@Common.Heading": "Nach-Platz",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLTAP_NLPLA"
+                },
+                "DestinationResource": {
+                    "type": "cds.String",
+                    "length": 18,
+                    "notNull": true,
+                    "@Common.SAPObjectNodeTypeReference": "WarehouseResource",
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Nach-Ressource",
+                    "@Common.QuickInfo": "Nach-Ressource (Transportmittel oder Benutzer)"
+                },
+                "WhseTaskTwoStepPickingType": {
+                    "type": "cds.String",
+                    "length": 1,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Lageraufgabenart",
+                    "@Common.Heading": "LB-Art",
+                    "@Common.QuickInfo": "LB-Art innerhalb der zweistufigen Kommissionierung"
+                },
+                "WhseTaskTwoStepPickingRlvnce": {
+                    "type": "cds.String",
+                    "length": 1,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Zweistuf. Kommiss.",
+                    "@Common.Heading": "2stK",
+                    "@Common.QuickInfo": "Relevanz für zweistufige Kommissionierung",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_L2SKR"
+                },
+                "ActivityArea": {
+                    "type": "cds.String",
+                    "length": 4,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Aktivitätsbereich",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_AAREA"
+                },
+                "SourceHandlingUnit": {
+                    "type": "cds.String",
+                    "length": 20,
+                    "notNull": true,
+                    "@Common.SAPObjectNodeTypeReference": "HandlingUnit",
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Von-Handling-Unit",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLTAP_VLENR_NOCONV"
+                },
+                "DestinationHandlingUnit": {
+                    "type": "cds.String",
+                    "length": 20,
+                    "notNull": true,
+                    "@Common.SAPObjectNodeTypeReference": "HandlingUnit",
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Nach-HU",
+                    "@Common.Heading": "Nach-Handling Unit",
+                    "@Common.QuickInfo": "Nach-Handling-Unit",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_DESHU_NOCONV"
+                },
+                "WrhsTaskSubsystemTransmn": {
+                    "type": "cds.String",
+                    "length": 1,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "LB an SUB-System",
+                    "@Common.Heading": "SUB",
+                    "@Common.QuickInfo": "Kennzeichen: Lageraufgabe an SUB-System übergeben"
+                },
+                "WarehouseTaskExceptionCode": {
+                    "type": "cds.String",
+                    "length": 4,
+                    "notNull": true
+                },
+                "WhseTaskSortingSequenceValue": {
+                    "type": "cds.Decimal",
+                    "precision": 10,
+                    "notNull": true,
+                    "@Common.Label": "Sortierreihenfolge",
+                    "@Common.Heading": "Sortierr."
+                },
+                "WarehouseOrderSequenceValue": {
+                    "type": "cds.Double",
+                    "notNull": true,
+                    "@Common.Label": "Reihenfolge",
+                    "@Common.QuickInfo": "Interne Reihenfolge des Lagerauftrags",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_WHOSEQ"
+                },
+                "WarehouseOrderActivityArea": {
+                    "type": "cds.String",
+                    "length": 4,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "LA-Aktivitätsbereich",
+                    "@Common.Heading": "Aktivitätsbereich",
+                    "@Common.QuickInfo": "Lagerauftragsaktivitätsbereich",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_WHOAA"
+                },
+                "WarehouseOrderCreationRule": {
+                    "type": "cds.String",
+                    "length": 4,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "LA-Erstellungsregel",
+                    "@Common.Heading": "Lagerauftragserstellungsregel",
+                    "@Common.QuickInfo": "Lagerauftragserstellungsregel",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_WCR"
+                },
+                "WarehouseOrderQueue": {
+                    "type": "cds.String",
+                    "length": 10,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Queue",
+                    "@Common.Heading": "Q",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_QUEUE"
+                },
+                "WarehouseActivityType": {
+                    "type": "cds.String",
+                    "length": 4,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Aktivität",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_ACTTY"
+                },
+                "EWMConsolidationGroup": {
+                    "type": "cds.String",
+                    "length": 10,
+                    "notNull": true,
+                    "@Common.Label": "Konsolidierungsgrup.",
+                    "@Common.Heading": "KonsGr",
+                    "@Common.QuickInfo": "Konsolidierungsgruppe",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_DSTGRP"
+                },
+                "EWMWarehouseTaskPriority": {
+                    "type": "cds.Integer",
+                    "@odata.Type": "Edm.Byte",
+                    "notNull": true,
+                    "@Common.Label": "Priorität",
+                    "@Common.Heading": "Priorit.",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_PRIOR"
+                },
+                "CreatedByUser": {
+                    "type": "cds.String",
+                    "length": 12,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Angelegt von",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_CREATOR"
+                },
+                "EWMRoute": {
+                    "type": "cds.String",
+                    "length": 10,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Route",
+                    "@Common.QuickInfo": "Name der Route (Identifikation)"
+                },
+                "EWMWaveCategory": {
+                    "type": "cds.String",
+                    "length": 2,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Wellentyp",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_WAVECAT"
+                },
+                "EWMCanceledWarehouseTask": {
+                    "type": "cds.String",
+                    "length": 12,
+                    "notNull": true,
+                    "@Common.IsDigitSequence": true
+                },
+                "SerialNumberRequiredLevel": {
+                    "type": "cds.String",
+                    "length": 1,
+                    "notNull": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Serialnummernpflicht",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_SER_STOCK"
+                },
+                "SAP__Messages": {
+                    "items": {
+                        "type": "api_warehouse_order_task_2.SAP__Message",
+                        "notNull": true
+                    }
+                },
+                "_WarehouseOrder": {
+                    "type": "cds.Association",
+                    "target": "api_warehouse_order_task_2.WarehouseOrder",
+                    "cardinality": {
+                        "max": 1
+                    },
+                    "on": [
+                        {
+                            "ref": [
+                                "_WarehouseOrder",
+                                "WarehouseOrder"
+                            ]
+                        },
+                        "=",
+                        {
+                            "ref": [
+                                "WarehouseOrder"
+                            ]
+                        }
+                    ]
+                },
+                "_WarehouseTaskExceptionCode": {
+                    "type": "cds.Composition",
+                    "target": "api_warehouse_order_task_2.WarehouseTaskExceptionCode",
+                    "cardinality": {
+                        "max": "*"
+                    },
+                    "on": [
+                        {
+                            "ref": [
+                                "_WarehouseTaskExceptionCode",
+                                "_WarehouseTask"
+                            ]
+                        },
+                        "=",
+                        {
+                            "ref": [
+                                "$self"
+                            ]
+                        }
+                    ],
+                    "@Common.Composition": true
+                },
+                "_WarehouseTaskSerialNumber": {
+                    "type": "cds.Composition",
+                    "target": "api_warehouse_order_task_2.WarehouseTaskSerialNumber",
+                    "cardinality": {
+                        "max": "*"
+                    },
+                    "on": [
+                        {
+                            "ref": [
+                                "_WarehouseTaskSerialNumber",
+                                "_WarehouseTask"
+                            ]
+                        },
+                        "=",
+                        {
+                            "ref": [
+                                "$self"
+                            ]
+                        }
+                    ],
+                    "@Common.Composition": true
+                }
+            },
+            "actions": {
+                "AddSrlNmbrToTaskConf": {
+                    "kind": "action",
+                    "params": {
+                        "EWMSerialNumber": {
+                            "type": "cds.String",
+                            "length": 30,
+                            "notNull": true,
+                            "@Common.FieldControl": {
+                                "#": "Mandatory"
+                            }
+                        },
+                        "EWMSerialNumberIsForDiffQty": {
+                            "type": "cds.Boolean",
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "default": {
+                                "val": false
+                            },
+                            "@Common.Label": "Serialnummer für Differenzmenge"
+                        }
+                    }
+                },
+                "ConfirmWarehouseTaskProduct": {
+                    "kind": "action",
+                    "params": {
+                        "AlternativeUnit": {
+                            "type": "cds.String",
+                            "length": 3,
+                            "notNull": true,
+                            "@Common.FieldControl": {
+                                "#": "Mandatory"
+                            },
+                            "@Common.IsUnit": true,
+                            "@Common.Label": "Alt.Mengeneinheit",
+                            "@Common.Heading": "AME",
+                            "@Common.QuickInfo": "Alternative Mengeneinheit für Lagermengeneinheit",
+                            "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_AUNIT_NOCONV"
+                        },
+                        "ActualQuantityInAltvUnit": {
+                            "type": "cds.Decimal",
+                            "precision": 31,
+                            "scale": 14,
+                            "notNull": true,
+                            "@Common.FieldControl": {
+                                "#": "Mandatory"
+                            },
+                            "@Measures.Unit": {
+                                "=": "AlternativeUnit"
+                            },
+                            "@Common.Label": "Istmenge",
+                            "@Common.QuickInfo": "Istmenge in alternativer Mengeneinheit",
+                            "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLTAP_NISTA"
+                        },
+                        "DifferenceQuantityInAltvUnit": {
+                            "type": "cds.Decimal",
+                            "precision": 31,
+                            "scale": 14,
+                            "notNull": true,
+                            "@Common.FieldControl": {
+                                "#": "Mandatory"
+                            },
+                            "@Measures.Unit": {
+                                "=": "AlternativeUnit"
+                            },
+                            "@Common.Label": "Differenzmenge",
+                            "@Common.QuickInfo": "Menge der Differenzenbuchung in alternativer Mengeneinheit",
+                            "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLTAP_DMENA"
+                        },
+                        "WhseTaskExceptionCodeQtyDiff": {
+                            "type": "cds.String",
+                            "length": 4,
+                            "notNull": true,
+                            "@Common.FieldControl": {
+                                "#": "Mandatory"
+                            },
+                            "@Common.IsUpperCase": true,
+                            "@Common.Label": "Ausnahmecode",
+                            "@Common.QuickInfo": "Ausnahme-Code",
+                            "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_EXCCODE"
+                        },
+                        "DestinationStorageBin": {
+                            "type": "cds.String",
+                            "length": 18,
+                            "notNull": true,
+                            "@Common.FieldControl": {
+                                "#": "Mandatory"
+                            },
+                            "@Common.IsUpperCase": true,
+                            "@Common.Label": "Nach-Lagerplatz",
+                            "@Common.Heading": "Nach-Platz",
+                            "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLTAP_NLPLA"
+                        },
+                        "WhseTaskExCodeDestStorageBin": {
+                            "type": "cds.String",
+                            "length": 4,
+                            "notNull": true,
+                            "@Common.FieldControl": {
+                                "#": "Mandatory"
+                            },
+                            "@Common.IsUpperCase": true,
+                            "@Common.Label": "Ausnahmecode",
+                            "@Common.QuickInfo": "Ausnahme-Code",
+                            "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_EXCCODE"
+                        },
+                        "SourceHandlingUnit": {
+                            "type": "cds.String",
+                            "length": 20,
+                            "notNull": true,
+                            "@Common.FieldControl": {
+                                "#": "Mandatory"
+                            },
+                            "@Common.IsUpperCase": true,
+                            "@Common.Label": "Von-Handling-Unit",
+                            "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLTAP_VLENR_NOCONV"
+                        },
+                        "DestinationHandlingUnit": {
+                            "type": "cds.String",
+                            "length": 20,
+                            "notNull": true,
+                            "@Common.FieldControl": {
+                                "#": "Mandatory"
+                            },
+                            "@Common.IsUpperCase": true,
+                            "@Common.Label": "Von-Handling-Unit",
+                            "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLTAP_VLENR_NOCONV"
+                        },
+                        "DestinationResource": {
+                            "type": "cds.String",
+                            "length": 18,
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "default": {
+                                "val": ""
+                            },
+                            "@Common.Label": "Nach-Ressource",
+                            "@Common.QuickInfo": "Nach-Ressource (Transportmittel oder Benutzer)"
+                        },
+                        "EWMPutAwayPhysInvtryExecSts": {
+                            "type": "cds.String",
+                            "length": 1,
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "default": {
+                                "val": ""
+                            },
+                            "@Common.Label": "EinlInv. ausgef",
+                            "@Common.Heading": "Inv. ausgf",
+                            "@Common.QuickInfo": "Einlagerinventur durchgeführt"
+                        },
+                        "EWMWhseTskLowStkChkExecSts": {
+                            "type": "cds.String",
+                            "length": 1,
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "default": {
+                                "val": ""
+                            },
+                            "@Common.Label": "NBstK durchgef.",
+                            "@Common.Heading": "NiBeKont",
+                            "@Common.QuickInfo": "Niederbestandskontrolle durchgeführt"
+                        },
+                        "EWMWhseTaskLowStockCheckQty": {
+                            "type": "cds.Decimal",
+                            "precision": 31,
+                            "scale": 14,
+                            "notNull": true,
+                            "@Measures.Unit": {
+                                "=": "AlternativeUnit"
+                            },
+                            "default": {
+                                "val": 0
+                            },
+                            "@Common.Label": "Restmenge",
+                            "@Common.QuickInfo": "Restmenge auf dem Vonlagerplatz in alt. Mengeneinheit",
+                            "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_RESTA"
+                        },
+                        "EWMHandlingUnitIsNotWithdrawn": {
+                            "type": "cds.Boolean",
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "default": {
+                                "val": false
+                            },
+                            "@Common.Label": "HU-Entnahme",
+                            "@Common.QuickInfo": "Kennzeichen: Handling Unit wird komplett entnommen",
+                            "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLTAP_HU_HUENT"
+                        },
+                        "DirectWhseTaskConfIsAllowed": {
+                            "type": "cds.Boolean",
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "default": {
+                                "val": false
+                            },
+                            "@Common.Label": "Direkte Quittierung oder Stornierung",
+                            "@Common.QuickInfo": "Direkte Quittierung oder Stornierung von Lageraufg. erlaubt"
+                        },
+                        "Batch": {
+                            "type": "cds.String",
+                            "length": 10,
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "default": {
+                                "val": ""
+                            },
+                            "@Common.Label": "Charge"
+                        },
+                        "EWMWhseTskExcptnCodeChgBatch": {
+                            "type": "cds.String",
+                            "length": 4,
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "default": {
+                                "val": ""
+                            },
+                            "@Common.Label": "Ausnahmecode",
+                            "@Common.QuickInfo": "Ausnahme-Code",
+                            "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_EXCCODE"
+                        },
+                        "ExternalWhseTaskIsProcessable": {
+                            "type": "cds.Boolean",
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "default": {
+                                "val": false
+                            },
+                            "@Common.Label": "Verarbeitung von externer Lageraufgabe"
+                        }
+                    }
+                },
+                "CancelWarehouseTask": {
+                    "kind": "action",
+                    "params": {
+                        "DirectWhseTaskConfIsAllowed": {
+                            "type": "cds.Boolean",
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "default": {
+                                "val": false
+                            },
+                            "@Common.Label": "Direkte Quittierung oder Stornierung",
+                            "@Common.QuickInfo": "Direkte Quittierung oder Stornierung von Lageraufg. erlaubt"
+                        },
+                        "ExternalWhseTaskIsProcessable": {
+                            "type": "cds.Boolean",
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "default": {
+                                "val": false
+                            },
+                            "@Common.Label": "Verarbeitung von externer Lageraufgabe"
+                        }
+                    }
+                },
+                "ReassignToWarehouseOrder": {
+                    "kind": "action",
+                    "params": {
+                        "WarehouseOrder": {
+                            "type": "cds.String",
+                            "length": 10,
+                            "notNull": true,
+                            "@Common.FieldControl": {
+                                "#": "Mandatory"
+                            },
+                            "@Common.Label": "Lagerauftrag",
+                            "@Common.Heading": "LagAuftrag",
+                            "@Common.QuickInfo": "Lagerauftragsnummer"
+                        }
+                    }
+                },
+                "ConfirmWarehouseTaskHndlgUnit": {
+                    "kind": "action",
+                    "params": {
+                        "DestinationStorageBin": {
+                            "type": "cds.String",
+                            "length": 18,
+                            "notNull": true,
+                            "@Common.FieldControl": {
+                                "#": "Mandatory"
+                            },
+                            "@Common.IsUpperCase": true,
+                            "@Common.Label": "Nach-Lagerplatz",
+                            "@Common.Heading": "Nach-Platz",
+                            "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLTAP_NLPLA"
+                        },
+                        "WhseTaskExCodeDestStorageBin": {
+                            "type": "cds.String",
+                            "length": 4,
+                            "notNull": true,
+                            "@Common.FieldControl": {
+                                "#": "Mandatory"
+                            },
+                            "@Common.IsUpperCase": true,
+                            "@Common.Label": "Ausnahmecode",
+                            "@Common.QuickInfo": "Ausnahme-Code",
+                            "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_EXCCODE"
+                        },
+                        "DestinationResource": {
+                            "type": "cds.String",
+                            "length": 18,
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "default": {
+                                "val": ""
+                            },
+                            "@Common.Label": "Nach-Ressource",
+                            "@Common.QuickInfo": "Nach-Ressource (Transportmittel oder Benutzer)"
+                        },
+                        "DirectWhseTaskConfIsAllowed": {
+                            "type": "cds.Boolean",
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "default": {
+                                "val": false
+                            },
+                            "@Common.Label": "Direkte Quittierung oder Stornierung",
+                            "@Common.QuickInfo": "Direkte Quittierung oder Stornierung von Lageraufg. erlaubt"
+                        },
+                        "ExternalWhseTaskIsProcessable": {
+                            "type": "cds.Boolean",
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "default": {
+                                "val": false
+                            },
+                            "@Common.Label": "Verarbeitung von externer Lageraufgabe"
+                        }
+                    }
+                },
+                "ConfirmWarehouseTaskExact": {
+                    "kind": "action",
+                    "params": {
+                        "DirectWhseTaskConfIsAllowed": {
+                            "type": "cds.Boolean",
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "default": {
+                                "val": false
+                            },
+                            "@Common.Label": "Direkte Quittierung oder Stornierung",
+                            "@Common.QuickInfo": "Direkte Quittierung oder Stornierung von Lageraufg. erlaubt"
+                        },
+                        "ExternalWhseTaskIsProcessable": {
+                            "type": "cds.Boolean",
+                            "notNull": true,
+                            "@Common.IsUpperCase": true,
+                            "default": {
+                                "val": false
+                            },
+                            "@Common.Label": "Verarbeitung von externer Lageraufgabe"
+                        }
+                    }
+                }
+            },
+            "@Common.Label": "Lageraufgabe",
+            "@Common.Messages": {
+                "=": "SAP__Messages"
+            },
+            "@Capabilities.NavigationRestrictions.RestrictedProperties": [
+                {
+                    "NavigationProperty": {
+                        "=": "_WarehouseOrder"
+                    },
+                    "DeepUpdateSupport": {
+                        "Supported": false
+                    }
+                }
+            ],
+            "@Capabilities.SearchRestrictions.Searchable": false,
+            "@Capabilities.UpdateRestrictions.NonUpdatableProperties": [
+                "WarehouseOrder"
+            ],
+            "@Capabilities.UpdateRestrictions.Updatable": false,
+            "@Capabilities.UpdateRestrictions.NonUpdatableNavigationProperties": [
+                "_WarehouseOrder",
+                "_WarehouseTaskExceptionCode",
+                "_WarehouseTaskSerialNumber"
+            ],
+            "@Capabilities.UpdateRestrictions.QueryOptions.SelectSupported": true,
+            "@Capabilities.DeleteRestrictions.Deletable": false,
+            "@Core.OptimisticConcurrency": [
+                "WhseTaskLastChgUTCDateTime"
+            ],
+            "@Capabilities.FilterRestrictions.FilterExpressionRestrictions": [
+                {
+                    "Property": {
+                        "=": "TargetQuantityInBaseUnit"
+                    },
+                    "AllowedExpressions": "MultiValue"
+                },
+                {
+                    "Property": {
+                        "=": "TargetQuantityInAltvUnit"
+                    },
+                    "AllowedExpressions": "MultiValue"
+                },
+                {
+                    "Property": {
+                        "=": "ActualQuantityInBaseUnit"
+                    },
+                    "AllowedExpressions": "MultiValue"
+                },
+                {
+                    "Property": {
+                        "=": "ActualQuantityInAltvUnit"
+                    },
+                    "AllowedExpressions": "MultiValue"
+                },
+                {
+                    "Property": {
+                        "=": "DifferenceQuantityInBaseUnit"
+                    },
+                    "AllowedExpressions": "MultiValue"
+                },
+                {
+                    "Property": {
+                        "=": "DifferenceQuantityInAltvUnit"
+                    },
+                    "AllowedExpressions": "MultiValue"
+                },
+                {
+                    "Property": {
+                        "=": "WhseTaskNetWeight"
+                    },
+                    "AllowedExpressions": "MultiValue"
+                },
+                {
+                    "Property": {
+                        "=": "WhseTaskNetVolume"
+                    },
+                    "AllowedExpressions": "MultiValue"
+                }
+            ]
+        },
+        "api_warehouse_order_task_2.WarehouseTaskExceptionCode": {
+            "kind": "entity",
+            "@cds.external": true,
+            "@cds.persistence.skip": true,
+            "elements": {
+                "EWMWarehouse": {
+                    "key": true,
+                    "type": "cds.String",
+                    "length": 4,
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Lagernummer",
+                    "@Common.Heading": "LNr",
+                    "@Common.QuickInfo": "Lagernummer/Lagerkomplex",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLGNUM"
+                },
+                "WarehouseTask": {
+                    "key": true,
+                    "type": "cds.String",
+                    "length": 12,
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.IsDigitSequence": true,
+                    "@Common.Label": "Lageraufgabe",
+                    "@Common.Heading": "LagAufgabe",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FTANUM_NOCONV"
+                },
+                "WarehouseTaskItem": {
+                    "key": true,
+                    "type": "cds.String",
+                    "length": 4,
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.IsDigitSequence": true,
+                    "@Common.Label": "LB-Pos.",
+                    "@Common.Heading": "Pos.",
+                    "@Common.QuickInfo": "Lageraufgabenposition",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FTAPOS_NOCONV"
+                },
+                "WarehouseTaskExceptionCode": {
+                    "key": true,
+                    "type": "cds.String",
+                    "length": 4,
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Ausnahmecode",
+                    "@Common.QuickInfo": "Ausnahme-Code",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_EXCCODE"
+                },
+                "BusinessContext": {
+                    "key": true,
+                    "type": "cds.String",
+                    "length": 3,
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Geschäftskontext",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FDE_BUSCON"
+                },
+                "BusinessContextExecutionStep": {
+                    "key": true,
+                    "type": "cds.String",
+                    "length": 2,
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "AusführSchritt",
+                    "@Common.QuickInfo": "Ausführungsschritt im Business-Kontext"
+                },
+                "_WarehouseTask": {
+                    "type": "cds.Association",
+                    "target": "api_warehouse_order_task_2.WarehouseTask",
+                    "cardinality": {
+                        "max": 1
+                    },
+                    "on": [
+                        {
+                            "ref": [
+                                "_WarehouseTask",
+                                "WarehouseTaskItem"
+                            ]
+                        },
+                        "=",
+                        {
+                            "ref": [
+                                "WarehouseTaskItem"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "@Common.Label": "Lageraufgabe Ausnahmecode",
+            "@Capabilities.NavigationRestrictions.RestrictedProperties": [
+                {
+                    "NavigationProperty": {
+                        "=": "_WarehouseTask"
+                    },
+                    "InsertRestrictions": {
+                        "Insertable": false
+                    }
+                }
+            ],
+            "@Capabilities.SearchRestrictions.Searchable": false,
+            "@Capabilities.InsertRestrictions.Insertable": false,
+            "@Capabilities.DeleteRestrictions.Deletable": false,
+            "@Capabilities.UpdateRestrictions.Updatable": false,
+            "@Capabilities.UpdateRestrictions.NonUpdatableNavigationProperties": [
+                "_WarehouseTask"
+            ],
+            "@Capabilities.UpdateRestrictions.QueryOptions.SelectSupported": true
+        },
+        "api_warehouse_order_task_2.WarehouseTaskSerialNumber": {
+            "kind": "entity",
+            "@cds.external": true,
+            "@cds.persistence.skip": true,
+            "elements": {
+                "EWMWarehouse": {
+                    "key": true,
+                    "type": "cds.String",
+                    "length": 4,
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "Lagernummer",
+                    "@Common.Heading": "LNr",
+                    "@Common.QuickInfo": "Lagernummer/Lagerkomplex",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FLGNUM"
+                },
+                "WarehouseTask": {
+                    "key": true,
+                    "type": "cds.String",
+                    "length": 12,
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.IsDigitSequence": true,
+                    "@Common.Label": "Lageraufgabe",
+                    "@Common.Heading": "LagAufgabe",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FTANUM_CONV_ALPHA"
+                },
+                "WarehouseTaskItem": {
+                    "key": true,
+                    "type": "cds.String",
+                    "length": 4,
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.IsDigitSequence": true,
+                    "@Common.Label": "LB-Pos.",
+                    "@Common.Heading": "Pos.",
+                    "@Common.QuickInfo": "Lageraufgabenposition",
+                    "@Common.DocumentationRef": "urn:sap-com:documentation:key?=type=DE&id=%2FSCWM%2FTAPOS_NOCONV"
+                },
+                "EWMSerialNumber": {
+                    "key": true,
+                    "type": "cds.String",
+                    "length": 30,
+                    "notNull": true,
+                    "@Core.Computed": true,
+                    "@Common.IsUpperCase": true,
+                    "@Common.Label": "30 Characters"
+                },
+                "_WarehouseTask": {
+                    "type": "cds.Association",
+                    "target": "api_warehouse_order_task_2.WarehouseTask",
+                    "cardinality": {
+                        "max": 1
+                    },
+                    "on": [
+                        {
+                            "ref": [
+                                "_WarehouseTask",
+                                "WarehouseTaskItem"
+                            ]
+                        },
+                        "=",
+                        {
+                            "ref": [
+                                "WarehouseTaskItem"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "@Common.Label": "Lageraufgabe Serialnummer",
+            "@Capabilities.NavigationRestrictions.RestrictedProperties": [
+                {
+                    "NavigationProperty": {
+                        "=": "_WarehouseTask"
+                    },
+                    "InsertRestrictions": {
+                        "Insertable": false
+                    }
+                }
+            ],
+            "@Capabilities.SearchRestrictions.Searchable": false,
+            "@Capabilities.InsertRestrictions.Insertable": false,
+            "@Capabilities.DeleteRestrictions.Deletable": false,
+            "@Capabilities.UpdateRestrictions.Updatable": false,
+            "@Capabilities.UpdateRestrictions.NonUpdatableNavigationProperties": [
+                "_WarehouseTask"
+            ],
+            "@Capabilities.UpdateRestrictions.QueryOptions.SelectSupported": true
+        }
+    }
+}

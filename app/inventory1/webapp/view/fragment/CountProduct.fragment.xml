@@ -1,0 +1,126 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  xmlns:cssgrid="sap.ui.layout.cssgrid"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:inventory1="inventory1.control"
+  core:require="{
+      Alpha: 'inventory1/model/Alpha',
+      BooleNot: 'inventory1/model/BooleNot'
+  }"
+>
+  <f:SimpleForm
+    class="editableForm"
+    columnsL="1"
+    columnsM="1"
+    editable="true"
+    id="idForm"
+    layout="ResponsiveGridLayout"
+  >
+    <!-- Handling Unit -->
+    <Label
+      id="idHU2Label"
+      labelFor="idHU"
+      required="{= ${flagHuObligatory} === 'X' }"
+      text="{i18n>hu}"
+      visible="{= ${flagHuObligatory} !== 'Y' }"
+    />
+    <FlexBox alignItems="Center" visible="{= ${flagHuObligatory} !== 'Y' }">
+      <inventory1:CustomInput
+        change=".onScanHu"
+        editable="{= ${/piItems/length} &gt; 1 }"
+        id="idHuScan"
+        maxLength="20"
+        value="{
+            path:'/huScan', 
+            type : 'Alpha',
+            formatOptions: {length:20}
+        }"
+      />
+      <!-- missing HU -->
+      <Switch
+        change=".onHuDeletedChanged"
+        id="idMissingHu"
+        state="{ path:'huDeleted', type:'BooleNot' }"
+        type="AcceptReject"
+      />
+      <Label
+        class="sapUiTinyMarginBegin"
+        labelFor="idMissingHu"
+        text="{= ${huDeleted} ? ${i18n>missing} : ${i18n>exists}}"
+      />
+    </FlexBox>
+    <!-- Top-HU -->
+    <Label
+      id="idTopHULabel"
+      labelFor="idTopHU"
+      text="{i18n>topHu}"
+      visible="{= ${huTop} !== ${huident} }"
+    />
+    <Input
+      editable="false"
+      value="{huTop}"
+      visible="{= ${huTop} !== ${huident} }"
+    />
+    <!-- Produkt -->
+    <Label
+      class="sapUiTinyTop"
+      id="idMaterial2Label"
+      labelFor="idMaterial"
+      text="{i18n>material}"
+    />
+    <HBox alignItems="Stretch" width="100%">
+      <Input
+        editable="false"
+        id="idMaterial"
+        value="{
+            path:'matnr', 
+            type : 'Alpha',
+            formatOptions: {length:18}
+        }"
+      />
+      <Text class="sapUiTinyMarginBegin" text="{maktx}" />
+    </HBox>
+    <!-- Charge  -->
+    <Label id="idBatch2Label" labelFor="idBatchId" text="{i18n>batch}" />
+    <HBox width="100%">
+      <Input
+        editable="false"
+        id="idBatchId"
+        value="{
+            path:'charg', 
+            type : 'sap.ui.model.type.String'
+        }"
+      />
+    </HBox>
+    <!-- Menge -->
+    <Label
+      id="idQtyLabel"
+      labelFor="idQty"
+      required="{= ! ${huDeleted} }"
+      text="{i18n>qty}"
+    />
+    <HBox>
+      <inventory1:CustomInput
+        change=".onQuantityChange"
+        editable="{= !! ${matnr} &amp;&amp; ! ${huDeleted} }"
+        id="idQty"
+        required="{= ! ${huDeleted} }"
+        submit=".onQuantitySubmit"
+        value="{
+            path:'enteredQuantity',
+            type : 'sap.ui.model.type.Float', 
+            constraints : { minimum : 0, maximum : 10000000 },
+            formatOptions: { emptyString: 0 }
+        }"
+      />
+      <Text class="sapUiTinyMarginBegin" id="idUnit" text="{enteredUnit}" />
+    </HBox>
+    <!-- Bestandsart -->
+    <Label id="idStockCategoryLabel" labelFor="idCat" text="{i18n>cat}" />
+    <HBox>
+      <Input editable="false" id="idCat" value="{catText}" />
+    </HBox>
+  </f:SimpleForm>
+</core:FragmentDefinition>

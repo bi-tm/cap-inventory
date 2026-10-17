@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog
+    class="sapUiResponsivePadding--content"
+    icon="sap-icon://question-mark"
+    id="equalHuQuestionId"
+    title="{i18n>multiHu}"
+  >
+    <content>
+      <Text
+        text="{ parts:['i18n>equalHuQuestion','/piItems/0/stockQuantity', '/piItems/0/enteredUnit', '/piItems/0/maktx', '/piItems/0/matnr' ], formatter: 'jQuery.sap.formatMessage' }"
+      />
+    </content>
+    <buttons>
+      <Button press=".cancelEqualHuDialog" text="{i18n>cancel}" />
+      <Button press=".startBulkPi" text="{i18n>equal}" type="Success" />
+      <Button press=".startHuPi" text="{i18n>unequal}" type="Negative" />
+    </buttons>
+  </Dialog>
+</core:FragmentDefinition>

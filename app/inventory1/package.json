@@ -1,0 +1,46 @@
+{
+  "name": "inventory1",
+  "version": "0.0.1",
+  "description": "Einfache Inventur",
+  "keywords": [
+    "ui5",
+    "openui5",
+    "sapui5"
+  ],
+  "main": "webapp/index.html",
+  "dependencies": {
+    "@odata2ts/http-client-axios": "^0.12.0",
+    "@odata2ts/odata-query-objects": "^0.28.1",
+    "@odata2ts/odata-service": "^0.23.1"
+  },
+  "devDependencies": {
+    "@odata2ts/odata2ts": "^0.40.1",
+    "@prettier/plugin-xml": "^3.4.2",
+    "@sap-ux/eslint-plugin-fiori-tools": "^10.0.0",
+    "@sap/ux-ui5-tooling": "1",
+    "@sapui5/types": "^1.146.0",
+    "@types/node": "^25.9.3",
+    "@types/openui5": "^1.153.0",
+    "@types/qunit": "^2.19.13",
+    "@typescript-eslint/eslint-plugin": "^8.57.1",
+    "@typescript-eslint/parser": "^8.57.1",
+    "@ui5/cli": "^4.0.71",
+    "@ui5/ts-interface-generator": "^0.12.0",
+    "eslint": "^10",
+    "typescript": "^5.9.3",
+    "ui5-task-zipper": "^3.4.x",
+    "ui5-tooling-modules": "^3.39.0",
+    "ui5-tooling-transpile": "^3.10.0"
+  },
+  "scripts": {
+    "deploy-config": "npx -p @sap/ux-ui5-tooling fiori add deploy-config cf",
+    "build:cf": "ui5 build preload --clean-dest --config ui5-deploy.yaml --include-task=generateCachebusterInfo",
+    "build": "npm run build:cf",
+    "gen-odata": "npx odata2ts"
+  },
+  "ui5": {
+    "dependencies": [
+      "ui5-tooling-modules"
+    ]
+  }
+}

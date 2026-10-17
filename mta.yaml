@@ -1,61 +1,52 @@
 _schema-version: 3.3.0
 ID: inventory1
+description: A simple CAP project.
 version: 1.0.0
-description: "A simple CAP project."
-parameters:
-  enable-parallel-deployments: true
-  deploy_mode: html5-repo
-build-parameters:
-  before-all:
-    - builder: custom
-      commands:
-        - npm ci
-        - npx cds build --production
 modules:
   - name: inventory1-srv
     type: nodejs
     path: gen/srv
-    parameters:
-      instances: 1
-      buildpack: nodejs_buildpack
-    build-parameters:
-      builder: npm-ci
-    provides:
-      - name: srv-api # required by consumers of CAP services (e.g. approuter)
-        properties:
-          srv-url: ${default-url}
     requires:
       - name: inventory1-auth
       - name: inventory1-postgres
       - name: inventory1-connectivity
       - name: inventory1-destination
-
+    provides:
+      - name: inventory1-srv-api
+        properties:
+          srv-url: ${default-url}
+    parameters:
+      buildpack: nodejs_buildpack
+      instances: 1
+    build-parameters:
+      builder: npm-ci
   - name: inventory1-postgres-deployer
     type: nodejs
     path: gen/pg
+    requires:
+      - name: inventory1-postgres
+      - name: inventory1-auth
+    provides:
+      - name: inventory1-postgres-deployer-api
+        properties:
+          srv-url: ${default-url}
     parameters:
       buildpack: nodejs_buildpack
       no-route: true
       no-start: true
       tasks:
-        - name: deploy-to-postgresql
-          command: npm start
-    requires:
-      - name: inventory1-postgres
+        - command: npm start
+          name: deploy-to-postgresql
   - name: inventory1
     type: approuter.nodejs
     path: app/router
-    parameters:
-      keep-existing-routes: true
-      disk-quota: 256M
-      memory: 256M
     requires:
-      - name: srv-api
+      - name: inventory1-srv-api
         group: destinations
         properties:
-          name: srv-api # must be used in xs-app.json as well
-          url: ~{srv-url}
           forwardAuthToken: true
+          name: inventory1-srv-api
+          url: ~{srv-url}
       - name: inventory1-auth
       - name: inventory1-destination
       - name: inventory1-html5-runtime
@@ -64,38 +55,55 @@ modules:
         properties:
           app-protocol: ${protocol}
           app-uri: ${default-uri}
-
+    parameters:
+      disk-quota: 256M
+      keep-existing-routes: true
+      memory: 256M
   - name: inventory1-app-deployer
     type: com.sap.application.content
     path: gen
+    requires:
+      - name: inventory1-auth
+      - name: inventory1-srv-api
+      - name: inventory1-html5-repo-host
+        parameters:
+          config:
+            HTML5Runtime_enabled: true
+          content-target: true
     build-parameters:
       build-result: app/
       requires:
-    requires:
-      - name: inventory1-auth
-      - name: srv-api
-      - name: inventory1-html5-repo-host
-        parameters:
-          content-target: true
-          config:
-            HTML5Runtime_enabled: true
-
+        - artifacts:
+            - inventory1.zip
+          name: inventory1
+          target-path: app/
+  - name: inventory1-ui5
+    type: html5
+    path: app/inventory1
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms:
+        []
 resources:
   - name: inventory1-auth
     type: org.cloudfoundry.managed-service
     parameters:
-      service: xsuaa
-      service-plan: application
-      path: ./xs-security.json
       config:
-        xsappname: inventory1-${org}-${space}
-        tenant-mode: dedicated
         oauth2-configuration:
           credential-types:
-            - "binding-secret"
-            - "x509"
+            - binding-secret
+            - x509
           redirect-uris:
             - https://*~{app-api/app-uri}/**
+        tenant-mode: dedicated
+        xsappname: inventory1-${org}-${space}
+      path: ./xs-security.json
+      service: xsuaa
+      service-plan: application
     requires:
       - name: app-api
   - name: inventory1-postgres
@@ -111,9 +119,28 @@ resources:
   - name: inventory1-destination
     type: org.cloudfoundry.managed-service
     parameters:
+      config:
+        HTML5Runtime_enabled: false
+        init_data:
+          instance:
+            destinations:
+              - Authentication: NoAuthentication
+                Name: ui5
+                ProxyType: Internet
+                Type: HTTP
+                URL: https://ui5.sap.com
+              - Authentication: NoAuthentication
+                HTML5.DynamicDestination: true
+                HTML5.ForwardAuthToken: true
+                Name: srv-api
+                ProxyType: Internet
+                Type: HTTP
+                URL: ~{srv-api/srv-url}
+            existing_destinations_policy: update
       service: destination
       service-plan: lite
-
+    requires:
+      - name: inventory1-srv-api
   - name: inventory1-html5-repo-host
     type: org.cloudfoundry.managed-service
     parameters:
@@ -124,3 +151,12 @@ resources:
     parameters:
       service: html5-apps-repo
       service-plan: app-runtime
+parameters:
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm ci
+        - npx cds build --production

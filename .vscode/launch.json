@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "cds serve",
+      "name": "cds-ts serve",
       "request": "launch",
       "type": "node",
       "cwd": "${workspaceFolder}",
@@ -12,7 +12,7 @@
         "--profile",
         "hybrid",
         "--with-mocks",
-        "--in-memory?",
+        "--in-memory?"
       ],
       "skipFiles": [
         "<node_internals>/**"

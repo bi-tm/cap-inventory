@@ -1,0 +1,18 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog
+    class="sapUiResponsivePadding--content"
+    icon="sap-icon://question-mark"
+    id="emptyBinQuestionId"
+    title="{i18n>emptyBinCount}"
+  >
+    <content>
+      <Text
+        text="{ parts:['i18n>emptyBinQuestion','/piHeader/lgpla' ], formatter: 'jQuery.sap.formatMessage' }"
+      />
+    </content>
+    <buttons>
+      <Button press=".cancelEmptyBinDialog" text="{i18n>cancel}" />
+      <Button press=".countEmptyBin" text="{i18n>emptyBin}" type="Success" />
+    </buttons>
+  </Dialog>
+</core:FragmentDefinition>

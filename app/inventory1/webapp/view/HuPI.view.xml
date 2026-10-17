@@ -1,0 +1,89 @@
+<mvc:View
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  xmlns:cssgrid="sap.ui.layout.cssgrid"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:mvc="sap.ui.core.mvc"
+  core:require="{
+      Alpha: 'inventory1/model/Alpha'
+  }"
+  controllerName="inventory1.controller.HuPI"
+  displayBlock="true"
+>
+  <Page
+    busy="{/isLoading}"
+    busyIndicatorDelay="0"
+    navButtonPress=".navigateBack"
+    showHeader="false"
+  >
+    <content>
+      <ObjectHeader
+        backgroundDesign="Solid"
+        condensed="true"
+        id="idBinHeader"
+        responsive="true"
+        title="{i18n>piBin} {/piHeader/lgpla}"
+      >
+        <attributes>
+          <ObjectAttribute
+            text="{ path:'/piHeader/docNumber', type:'Alpha'} - {/piHeader/itemNo}"
+            title="{i18n>piDocNo}"
+          />
+        </attributes>
+      </ObjectHeader>
+      <core:Fragment
+        fragmentName="inventory1.view.fragment.ErrorStrip"
+        type="XML"
+      />
+      <IconTabBar
+        class="sapUiResponsiveContentPadding"
+        expandable="false"
+        headerMode="Inline"
+        id="idContentIconTabBar"
+        select=".onTabSelected"
+        selectedKey="{/selectedTab}"
+        upperCase="true"
+      >
+        <items>
+          <IconTabFilter design="Vertical" key="1" text="{i18n>input}">
+            <core:Fragment
+              fragmentName="inventory1.view.fragment.CountProduct"
+              type="XML"
+            />
+          </IconTabFilter>
+          <IconTabFilter
+            count="{/piItems/length}"
+            design="Vertical"
+            key="2"
+            text="{i18n>items}"
+          >
+            <core:Fragment
+              fragmentName="inventory1.view.fragment.ResultList"
+              type="XML"
+            />
+          </IconTabFilter>
+        </items>
+      </IconTabBar>
+    </content>
+    <footer>
+      <Toolbar>
+        <Button
+          icon="sap-icon://alert"
+          press=".onMessagesButtonPress"
+          text="{=${message>/}.length}"
+          type="Emphasized"
+        />
+        <ToolbarSpacer />
+        <Button
+          enabled="{= !! ${/piItems/length} }"
+          icon="sap-icon://save"
+          id="idSave"
+          press=".onSave"
+          text="{i18n>save}"
+          type="Accept"
+        />
+        <!--<Button text="LOCK" press="onLock"/>-->
+      </Toolbar>
+    </footer>
+  </Page>
+</mvc:View>

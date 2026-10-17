@@ -6,30 +6,72 @@
     "@sap-cloud-sdk/connectivity": "^4.9.1",
     "@sap-cloud-sdk/http-client": "^4",
     "@sap-cloud-sdk/resilience": "^4",
-    "@sap/cds": "^10",
+    "@sap/cds": "^10.1.1",
     "@sap/xssec": "^4"
   },
   "devDependencies": {
-    "@cap-js/sqlite": "^3",
-    "@sap/cds-dk": "^10"
+    "@cap-js/cds-typer": "^0.41.1",
+    "@cap-js/cds-types": "^0.20.0",
+    "@cap-js/sqlite": "^3.1.2",
+    "@sap/cds-dk": "^10",
+    "@types/node": "^26.6.5",
+    "cds-plugin-ui5": "^0.17.0",
+    "cds-swagger-ui-express": "^0.11.0",
+    "mbt": "^1.2.49",
+    "prettier": "^3.8.1",
+    "prettier-plugin-imports": "^4.3.3",
+    "prettier-plugin-packagejson": "^3.0.2",
+    "prettier-plugin-properties": "^0.3.1",
+    "rimraf": "^5.0.5",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3"
   },
   "scripts": {
-    "start": "cds-serve"
+    "start": "cds-serve --profile hybrid",
+    "watch-inventory1": "cds watch --profile hybrid --open inventory1/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "undeploy": "cf undeploy inventory1 --delete-services --delete-service-keys --delete-service-brokers",
+    "build": "rimraf resources mta_archives && mbt build --mtar archive",
+    "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "build:ts": "tsc -p tsconfig.json",
+    "watch:ts": "tsc -w -p tsconfig.json"
   },
   "private": true,
   "cds": {
     "connectivity": true,
     "destinations": true,
     "html5-repo": true,
+    "typer": {
+      "outputDirectory": "@cds-models"
+    },
     "requires": {
       "[production]": {
         "auth": "xsuaa"
+      },
+      "db": {
+        "[development]": {
+          "kind": "sqlite",
+          "credentials": {
+            "url": "db.sqlite"
+          }
+        },
+        "[hybrid]": {
+          "kind": "sqlite",
+          "credentials": {
+            "url": "db.sqlite"
+          }
+        },
+        "[production]": {
+          "kind": "hana"
+        }
       },
       "api_whse_physstockprod": {
         "kind": "odata-v4",
         "model": "srv/external/api_whse_physstockprod",
         "credentials": {
-          "destination": "XAN-100-INVENTORY"
+          "destination": "XAN-100-INVENTORY",
+          "path": "/sap/opu/odata4/sap/api_whse_physstockprod/srvd_a2x/sap/whsephysicalstockproducts/0001"
         }
       },
       "api_whse_physinvtryitem_2": {
@@ -41,7 +83,21 @@
             "path": "/sap/opu/odata4/sap/api_whse_physinvtryitem_2/srvd_a2x/sap/whsephysicalinventorydoc/0001/"
           }
         }
+      },
+      "api_warehouse_order_task_2": {
+        "kind": "odata",
+        "model": "srv/external/api_warehouse_order_task_2",
+        "credentials": {
+          "destination": "XAN-100-INVENTORY",
+          "path": "/sap/opu/odata4/sap/api_warehouse_order_task_2/srvd_a2x/sap/warehouseorder/0001/"
+        }
       }
     }
+  },
+  "workspaces": [
+    "app/*"
+  ],
+  "imports": {
+    "#cds-models/*": "./@cds-models/*/index.js"
   }
 }

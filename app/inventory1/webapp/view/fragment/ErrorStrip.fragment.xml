@@ -1,0 +1,7 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <MessageStrip
+    text="{/error}"
+    type="Error"
+    visible="{/showError}"
+  />
+</core:FragmentDefinition>
