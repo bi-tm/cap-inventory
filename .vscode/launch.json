@@ -2,21 +2,23 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "cds watch",
+      "request": "launch",
+      "type": "node",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "cds",
+      "args": ["watch", "--profile", "hybrid", "--with-mocks"],
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
       "name": "cds-ts serve",
       "request": "launch",
       "type": "node",
       "cwd": "${workspaceFolder}",
       "runtimeExecutable": "cds",
-      "args": [
-        "watch",
-        "--profile",
-        "hybrid",
-        "--with-mocks",
-        "--in-memory?"
-      ],
-      "skipFiles": [
-        "<node_internals>/**"
-      ]
+      "args": ["watch", "--profile", "hybrid", "--with-mocks", "--in-memory?"],
+      "skipFiles": ["<node_internals>/**"]
     }
   ]
 }
